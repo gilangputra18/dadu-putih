@@ -23,17 +23,14 @@ function rollDiceSum32Random(oa) {
     if (totalDice === 0)
         return;
 
-    // Pilih targetSum sesuai rollCount
-    let targetSum;
-    if (rollCount === 1)
-        targetSum = Math.floor(Math.random() * 6) + 1;
-        // first roll random
-    else if (rollCount === 2)
-        targetSum = targetSumsFromFile.sum1;
-    else if (rollCount === 3)
-        targetSum = targetSumsFromFile.sum2;
-    else
-        targetSum = targetSumsFromFile.sum3;
+    // Perulangan berurutan: sum1 -> sum2 -> sum3 -> sum1 -> sum2 -> sum3 ...
+    const sumsSequence = [
+        targetSumsFromFile.sum1,
+        targetSumsFromFile.sum2,
+        targetSumsFromFile.sum3
+    ];
+    const stepIndex = (rollCount - 1) % 3;
+    let targetSum = sumsSequence[stepIndex];
 
     let remaining = targetSum;
     const values = [];
