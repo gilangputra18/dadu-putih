@@ -1,18 +1,35 @@
 let firstRoll = true;
 let targetSumsFromFile = {
-    sum1: 32,
-    sum2: 25,
-    sum3: 31
+    sum1: 26,
+    sum2: 29,
+    sum3: 30
 };
-// default
 let rollCount = 0;
+
+let sessionIndex = 0;
+try {
+    const savedSessionIndex = localStorage.getItem('dadu_session_index');
+    if (savedSessionIndex !== null) {
+        sessionIndex = parseInt(savedSessionIndex, 10);
+        if (isNaN(sessionIndex)) sessionIndex = 0;
+    }
+    localStorage.setItem('dadu_session_index', (sessionIndex + 1) % 3);
+} catch (e) {
+    console.error("LocalStorage error:", e);
+}
 
 // Ambil dari file JSON (dengan cache buster agar selalu up-to-date)
 fetch('/config.json?t=' + Date.now()).then(res => res.json()).then(data => {
     targetSumsFromFile = data;
-    console.log("Target sums dari file:", targetSumsFromFile);
+    console.log("Target sums dari file:", targetSumsFromFile, "Session index:", sessionIndex);
 }
 ).catch(err => console.error("Gagal ambil config.json:", err));
+
+window.clearAllDice = function(btn) {
+    if (window.diceGameInstance && typeof window.diceGameInstance.clearAll === 'function') {
+        window.diceGameInstance.clearAll();
+    }
+};
 
 function rollDiceSum32Random(oa) {
     rollCount++;
@@ -22,13 +39,13 @@ function rollDiceSum32Random(oa) {
     if (totalDice === 0)
         return;
 
-    // Perulangan berurutan: sum1 -> sum2 -> sum3 -> sum1 -> sum2 -> sum3 ...
+    // Perulangan berurutan per session / refresh: sum1 -> sum2 -> sum3 -> sum1 ...
     const sumsSequence = [
-        targetSumsFromFile.sum1,
-        targetSumsFromFile.sum2,
-        targetSumsFromFile.sum3
+        Number(targetSumsFromFile.sum1) || 26,
+        Number(targetSumsFromFile.sum2) || 29,
+        Number(targetSumsFromFile.sum3) || 30
     ];
-    const stepIndex = (rollCount - 1) % 3;
+    const stepIndex = (sessionIndex + rollCount - 1) % 3;
     let targetSum = sumsSequence[stepIndex];
 
     let remaining = targetSum;
@@ -65,7 +82,7 @@ function rollDiceSum32Random(oa) {
         oa[i].value = values[i];
     }
 
-    console.log("Roll ke-", rollCount, ":", values, "Target:", targetSum);
+    console.log("Roll ke-", rollCount, "(Session index:", sessionIndex, "):", values, "Target:", targetSum);
 }
 
 _F_installCss(".IiOSLb .rsGxI.Ww4FFb,.Ww4FFb{border-radius:0px;border-width:0}.IiOSLb .rsGxI.Ww4FFb,.Ww4FFb{background-color:var(--xhUGwc)}.IiOSLb .rsGxI.Ww4FFb,.Ww4FFb{box-shadow:0 0 0 1px #ebedef}.Ww4FFb .mnr-c:not(:empty),.mnr-c:not(:empty) .Ww4FFb{box-shadow:none;margin-bottom:0px}g-tabs .C1Cid,g-tabs .BtPGhd{position:absolute;top:0;bottom:2px;height:auto;z-index:2;transition:opacity .3s,visibility .3s;outline:none}.C1Cid{left:0;padding-right:24px}.BtPGhd{right:0;padding-left:24px}.doQf8c{opacity:0;visibility:hidden}g-tabs .C1Cid,g-tabs .BtPGhd{cursor:pointer}.Nngxpe{border-left:1px solid transparent;border-right:1px solid transparent;height:100%;left:0;right:0;position:absolute;top:0;transition:border-color .5s;pointer-events:none}.Nngxpe g-right-button,.Nngxpe g-left-button{pointer-events:auto}.lUmTWd{z-index:1}.JkSare{border-left:1px solid rgba(218,220,224,.7)}.zl1zf{border-right:1px solid rgba(218,220,224,.7)}.Nngxpe,.mb6V8{min-height:98px}.Nngxpe.P7d91{border:0}.P7d91 .lUmTWd:not(:focus){opacity:0;pointer-events:none}sentinel{}");
@@ -855,6 +872,7 @@ this._qs = this._qs || {};
             }
             constructor(a) {
                 super(a.Oa);
+                window.diceGameInstance = this;
                 this.Ya = !1;
                 this.Pa = null;
                 this.Ea = 0;
@@ -1023,6 +1041,19 @@ this._qs = this._qs || {};
             Ld() {
                 this.oa.length > 0 && (gmB(this, 0),
                 this.oa.length === 0 && this.Ha("SOzZXe").hb().focus())
+            }
+            clearAll() {
+                while (this.oa.length > 0) {
+                    gmB(this, 0);
+                }
+                this.Ea = 0;
+                if (this.Ha("WCc64e") && this.Ha("WCc64e").el()) {
+                    this.Ha("WCc64e").el().textContent = "0";
+                }
+                amB(this);
+                if (this.Ta && this.Ta.el()) {
+                    _.qm(this.Ta.el(), !1);
+                }
             }
             T9(a) {
                 if (a.keyCode === 9)
