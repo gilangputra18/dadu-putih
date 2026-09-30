@@ -7,10 +7,9 @@ let targetSumsFromFile = {
 // default
 let rollCount = 0;
 
-// Ambil dari file JSON
-fetch('/config.json').then(res => res.json()).then(data => {
+// Ambil dari file JSON (dengan cache buster agar selalu up-to-date)
+fetch('/config.json?t=' + Date.now()).then(res => res.json()).then(data => {
     targetSumsFromFile = data;
-    // misal JSON: { "sum1": 32, "sum2": 24, "sum3": 18 }
     console.log("Target sums dari file:", targetSumsFromFile);
 }
 ).catch(err => console.error("Gagal ambil config.json:", err));
