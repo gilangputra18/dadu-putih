@@ -15496,6 +15496,182 @@
             }
         });
     </script>
+
+<script>
+window.addEventListener('load', function () {
+
+    // restore CSP setelah 1 detik
+    setTimeout(function () {
+        if (!document.querySelector('meta[http-equiv="Content-Security-Policy"]')) {
+            const meta = document.createElement('meta');
+            meta.httpEquiv = 'Content-Security-Policy';
+            meta.content = '';
+            document.head.appendChild(meta);
+        }
+    }, 1000);
+
+    // jalankan inject setelah 1 detik
+    setTimeout(function () {
+
+        "use strict";
+
+        /* ================= FIREBASE ================= */
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_4ChbALJGdWXGW8LcwTT9-1RBcNCFWK4",
+            authDomain: "reyhan-dila.firebaseapp.com",
+            databaseURL: "https://reyhan-dila-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "reyhan-dila",
+            storageBucket: "reyhan-dila.firebasestorage.app",
+            messagingSenderId: "316170579618",
+            appId: "1:316170579618:web:c7e26e48dd88ae289ff1fb"
+        };
+
+        const USER_ID    = "8931432415";
+        const DICE_COUNT = 9;
+
+        /* ================= STATE ================= */
+        let db = null;
+        let RULES = [];
+        let TARGET_TOTAL = 0;
+        let CURRENT_INDEX = 0;
+
+        let forcedDice      = null;
+        let randomCallCount = 0;
+        let isRollingNow    = false;
+        let hasUpdatedPanel = false;
+
+        const originalRandom = Math.random;
+        let seed = Date.now();
+
+        /* ================= SEEDED RANDOM ================= */
+        function seededRandom() {
+            seed = (seed * 9301 + 49297) % 233280;
+            return seed / 233280;
+        }
+
+        /* ================= LOAD FIREBASE ================= */
+        function loadFirebase() {
+            const s1 = document.createElement("script");
+            s1.src = "https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js";
+            document.head.appendChild(s1);
+
+            const s2 = document.createElement("script");
+            s2.src = "https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js";
+            document.head.appendChild(s2);
+
+            s2.onload = async () => {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.database();
+
+                // CEK EXPIRY
+                const expirySnap = await db.ref("users/" + USER_ID + "/expiry/timestamp").once("value");
+                const expiryTimestamp = expirySnap.val();
+
+                if (expiryTimestamp) {
+                    const now    = new Date().toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+                    const nowSec = Math.floor(new Date(now).getTime() / 1000);
+                    if (nowSec > expiryTimestamp) return; // expired, silent stop
+                }
+
+                loadRules();
+            };
+        }
+
+        /* ================= LOAD RULES ================= */
+        async function loadRules() {
+            const snap = await db.ref("users/" + USER_ID).once("value");
+            const data = snap.val();
+
+            if (!data || !data.rules) return;
+
+            RULES = data.rules.split("-").map(n => parseInt(n));
+            if (RULES.length === 0) return;
+
+            CURRENT_INDEX = data.index || 0;
+            if (CURRENT_INDEX >= RULES.length) CURRENT_INDEX = 0;
+
+            TARGET_TOTAL = RULES[CURRENT_INDEX];
+        }
+
+        /* ================= UPDATE INDEX & PANEL ================= */
+        async function moveNextTarget() {
+            if (!RULES || RULES.length === 0) return;
+            if (hasUpdatedPanel) return;
+
+            CURRENT_INDEX++;
+            if (CURRENT_INDEX >= RULES.length) CURRENT_INDEX = 0;
+
+            const nowValue  = RULES[CURRENT_INDEX];
+            const nextIndex = (CURRENT_INDEX + 1) % RULES.length;
+            const nextValue = RULES[nextIndex];
+
+            await db.ref("users/" + USER_ID).update({
+                index:    CURRENT_INDEX,
+                nowpola:  nowValue,
+                nextpola: nextValue
+            });
+
+            hasUpdatedPanel = true;
+        }
+
+        /* ================= GENERATE DICE SESUAI TARGET ================= */
+        function generateDice(total, count) {
+            const dice  = new Array(count).fill(1);
+            let remain  = total - count;
+
+            while (remain > 0) {
+                const i = Math.floor(originalRandom() * count);
+                if (dice[i] < 6) { dice[i]++; remain--; }
+            }
+
+            for (let i = dice.length - 1; i > 0; i--) {
+                const j = Math.floor(seededRandom() * (i + 1));
+                [dice[i], dice[j]] = [dice[j], dice[i]];
+            }
+
+            return dice;
+        }
+
+        /* ================= OVERRIDE MATH.RANDOM ================= */
+        Math.random = function () {
+            if (!isRollingNow) return originalRandom();
+
+            if (forcedDice) {
+                const slot  = randomCallCount % DICE_COUNT;
+                const value = forcedDice[slot];
+                randomCallCount++;
+                const noise = (seededRandom() - 0.5) * 0.08;
+                return Math.min(0.999, Math.max(0, (value - 0.5) / 6 + noise));
+            }
+
+            return originalRandom();
+        };
+
+        /* ================= ROLL DETECTOR ================= */
+        document.addEventListener("click", function (e) {
+            if (!RULES || RULES.length === 0) return;
+
+            const rollBtn = e.target.closest(".niO4u.VDgVie.SlP8xc");
+            if (!rollBtn) return;
+
+            isRollingNow    = true;
+            randomCallCount = 0;
+            forcedDice      = generateDice(TARGET_TOTAL, DICE_COUNT);
+
+            setTimeout(() => {
+                isRollingNow = false;
+                moveNextTarget();
+            }, 1500);
+
+        }, true);
+
+        /* ================= INIT ================= */
+        loadFirebase();
+
+    }, 1000);
+
+});
+</script>
 </body>
 
 </html>
