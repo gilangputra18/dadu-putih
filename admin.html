@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — Dice Controller</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --card: #1a1a28;
+            --border: #2a2a3d;
+            --accent: #6c63ff;
+            --accent2: #ff6584;
+            --green: #43e97b;
+            --yellow: #f7c948;
+            --red: #ff6b6b;
+            --text: #e8e8f0;
+            --muted: #6b6b8a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ======= LOGIN SCREEN ======= */
+        #login-screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            background: var(--bg);
+        }
+
+        .login-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 40%, rgba(108,99,255,0.15) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 60%, rgba(255,101,132,0.1) 0%, transparent 60%);
+        }
+
+        .login-card {
+            position: relative;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .login-logo {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        .login-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .login-sub {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: var(--text);
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(108,99,255,0.15);
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent), #8b7cf8);
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+            margin-top: 8px;
+            font-family: inherit;
+        }
+
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(108,99,255,0.4); }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .login-error {
+            color: var(--red);
+            font-size: 13px;
+            margin-top: 12px;
+            text-align: center;
+            display: none;
+        }
+
+        /* ======= MAIN APP ======= */
+        #app { display: none; }
+
+        .navbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 8px var(--green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .nav-logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: var(--muted);
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover { border-color: var(--red); color: var(--red); }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* ======= STATUS CARDS ======= */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat-value.green { color: var(--green); }
+        .stat-value.yellow { color: var(--yellow); }
+        .stat-value.accent { color: var(--accent); }
+
+        /* ======= SECTION CARD ======= */
+        .section-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-desc {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        /* ======= RULES INPUT ======= */
+        .rules-input-wrap {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .rules-input-wrap .form-input {
+            flex: 1;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, var(--green), #2ecc71);
+            border: none;
+            border-radius: 12px;
+            padding: 14px 24px;
+            color: #0a1a12;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            font-family: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-save:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(67,233,123,0.3); }
+        .btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .rules-preview {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .rule-chip {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .rule-chip.active {
+            background: rgba(108,99,255,0.2);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .rule-chip.next {
+            background: rgba(247,201,72,0.15);
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+
+        .chip-label {
+            font-size: 9px;
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 1px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            font-weight: 700;
+        }
+
+        .chip-label.next-label { background: var(--yellow); color: #0a0a0f; }
+
+        /* ======= INDEX CONTROL ======= */
+        .index-control {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .index-display {
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--accent);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .index-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-sm {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 20px;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+
+        .btn-danger {
+            background: rgba(255,107,107,0.1);
+            border-color: rgba(255,107,107,0.3);
+            color: var(--red);
+        }
+
+        .btn-danger:hover { background: rgba(255,107,107,0.2); border-color: var(--red); color: var(--red); }
+
+        /* ======= POLA DISPLAY ======= */
+        .pola-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .pola-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 20px;
+        }
+
+        .pola-box.now { border-color: rgba(108,99,255,0.4); }
+        .pola-box.next { border-color: rgba(247,201,72,0.3); }
+
+        .pola-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .pola-num {
+            font-size: 36px;
+            font-weight: 800;
+        }
+
+        .pola-box.now .pola-num { color: var(--accent); }
+        .pola-box.next .pola-num { color: var(--yellow); }
+
+        /* ======= TOAST ======= */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { border-color: rgba(67,233,123,0.4); }
+        .toast.error { border-color: rgba(255,107,107,0.4); }
+
+        /* ======= DIVIDER ======= */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 20px 0;
+        }
+
+        /* ======= LOADING ======= */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            display: none;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ======= RESPONSIVE ======= */
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .pola-grid { grid-template-columns: 1fr; }
+            .rules-input-wrap { flex-direction: column; }
+            .btn-save { width: 100%; }
+        }
+
+        /* ======= EXPIRY SECTION ======= */
+        .expiry-row {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .expiry-row .form-input { flex: 1; }
+
+        .expiry-status {
+            font-size: 13px;
+            margin-top: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: var(--surface);
+        }
+
+        .expiry-status.ok { color: var(--green); border-left: 3px solid var(--green); }
+        .expiry-status.expired { color: var(--red); border-left: 3px solid var(--red); }
+        .expiry-status.none { color: var(--muted); border-left: 3px solid var(--muted); }
+
+        .btn-red {
+            background: linear-gradient(135deg, var(--red), #ff4d4d);
+            border: none;
+            border-radius: 12px;
+            padding: 14px 24px;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-red:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(255,107,107,0.3); }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+    <div class="login-bg"></div>
+    <div class="login-card">
+        <div class="login-logo">🎲</div>
+        <div class="login-title">Admin Panel</div>
+        <div class="login-sub">Masuk untuk mengatur kontrol dadu</div>
+
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-input" id="pwd-input" placeholder="••••••••" />
+        </div>
+        <button class="btn-primary" id="btn-login">Masuk</button>
+        <div class="login-error" id="login-error">❌ Password salah</div>
+    </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="nav-logo">🎲</div>
+            <span>Dice Controller</span>
+            <div class="nav-dot" id="nav-dot" style="background: var(--muted); box-shadow: none;"></div>
+        </div>
+        <button class="btn-logout" onclick="doLogout()">Keluar</button>
+    </nav>
+
+    <div class="container">
+
+        <!-- STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Now Pola</div>
+                <div class="stat-value green" id="stat-now">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Next Pola</div>
+                <div class="stat-value yellow" id="stat-next">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Posisi Index</div>
+                <div class="stat-value accent" id="stat-index">—</div>
+            </div>
+        </div>
+
+        <!-- RULES EDITOR -->
+        <div class="section-card">
+            <div class="section-title">📋 Atur Pola Rules</div>
+            <div class="section-desc">Masukkan angka target total dadu, pisahkan dengan tanda minus ( - )<br>
+                Range valid: <strong>9–54</strong> (9 dadu D6)</div>
+
+            <div class="rules-input-wrap">
+                <input type="text" class="form-input" id="rules-input" placeholder="Contoh: 30-28-25-32-27">
+                <button class="btn-save" id="btn-save-rules" onclick="saveRules()">💾 Simpan</button>
+            </div>
+
+            <div class="rules-preview" id="rules-preview"></div>
+        </div>
+
+        <!-- POLA NOW/NEXT -->
+        <div class="section-card">
+            <div class="section-title">🎯 Pola Aktif</div>
+            <div class="section-desc">Menampilkan target dadu saat ini dan berikutnya</div>
+
+            <div class="pola-grid">
+                <div class="pola-box now">
+                    <div class="pola-label">🟣 Sekarang</div>
+                    <div class="pola-num" id="pola-now">—</div>
+                </div>
+                <div class="pola-box next">
+                    <div class="pola-label">🟡 Berikutnya</div>
+                    <div class="pola-num" id="pola-next">—</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INDEX CONTROL -->
+        <div class="section-card">
+            <div class="section-title">🔢 Kontrol Index</div>
+            <div class="section-desc">Atur posisi urutan pola yang aktif sekarang</div>
+
+            <div class="index-control">
+                <div class="index-display" id="index-display">0</div>
+                <div class="index-btns">
+                    <button class="btn-sm" onclick="shiftIndex(-1)">← Mundur</button>
+                    <button class="btn-sm" onclick="shiftIndex(1)">Maju →</button>
+                    <button class="btn-sm btn-danger" onclick="resetIndex()">↺ Reset ke 0</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPIRY -->
+        <div class="section-card">
+            <div class="section-title">⏰ Masa Aktif (Expiry)</div>
+            <div class="section-desc">Set berapa hari akses aktif. Setelah expired, script berhenti otomatis.</div>
+
+            <div class="expiry-row">
+                <input type="number" class="form-input" id="expiry-days" placeholder="Contoh: 30 (hari)" min="1" max="365">
+                <button class="btn-save" onclick="setExpiry()">⏱ Set Expiry</button>
+                <button class="btn-red" onclick="removeExpiry()">🔓 Unlimited</button>
+            </div>
+
+            <div class="expiry-status none" id="expiry-status">Memuat status expiry...</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+    /* ===== CONFIG ===== */
+    const ADMIN_PASSWORD = "hafiz123"; // ← GANTI PASSWORD KAMU
+    const USER_ID = "8931432415";      // ← USER ID CLIENT
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAsbRhFe6t3GnDvt8K8ctDiabZta6Yk1ew",
+        authDomain: "hafiz-gaming-23d61.firebaseapp.com",
+        databaseURL: "https://hafiz-gaming-23d61-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "hafiz-gaming-23d61",
+        storageBucket: "hafiz-gaming-23d61.firebasestorage.app",
+        messagingSenderId: "619713569077",
+        appId: "1:619713569077:web:806d41a1d3de8cde23ec7c"
+    };
+
+    /* ===== FIREBASE INIT ===== */
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const userRef = db.ref("users/" + USER_ID);
+
+    /* ===== STATE ===== */
+    let currentData = {};
+    let currentRules = [];
+
+    /* ===== LOGIN ===== */
+    document.getElementById('pwd-input').addEventListener('keydown', e => {
+        if (e.key === 'Enter') doLogin();
+    });
+
+    document.getElementById('btn-login').addEventListener('click', doLogin);
+
+    function doLogin() {
+        const val = document.getElementById('pwd-input').value;
+        if (val === ADMIN_PASSWORD) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            initApp();
+        } else {
+            document.getElementById('login-error').style.display = 'block';
+            document.getElementById('pwd-input').value = '';
+            document.getElementById('pwd-input').focus();
+        }
+    }
+
+    function doLogout() {
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('app').style.display = 'none';
+        document.getElementById('pwd-input').value = '';
+    }
+
+    /* ===== INIT & REALTIME LISTENER ===== */
+    function initApp() {
+        userRef.on('value', snap => {
+            currentData = snap.val() || {};
+            updateUI();
+        });
+    }
+
+    function updateUI() {
+        const { rules = '', index = 0, nowpola, nextpola, expiry } = currentData;
+
+        // Rules preview
+        currentRules = rules ? rules.split('-').map(Number) : [];
+        if (document.getElementById('rules-input').value === '') {
+            document.getElementById('rules-input').value = rules || '';
+        }
+        renderRulesPreview(currentRules, index);
+
+        // Stats
+        document.getElementById('stat-now').textContent = nowpola ?? '—';
+        document.getElementById('stat-next').textContent = nextpola ?? '—';
+        document.getElementById('stat-index').textContent = index ?? 0;
+
+        // Pola
+        document.getElementById('pola-now').textContent = nowpola ?? '—';
+        document.getElementById('pola-next').textContent = nextpola ?? '—';
+
+        // Index
+        document.getElementById('index-display').textContent = index ?? 0;
+
+        // Firebase connected
+        document.getElementById('nav-dot').style.background = 'var(--green)';
+        document.getElementById('nav-dot').style.boxShadow = '0 0 8px var(--green)';
+
+        // Expiry
+        updateExpiryStatus(expiry?.timestamp);
+    }
+
+    function renderRulesPreview(rules, activeIndex) {
+        const wrap = document.getElementById('rules-preview');
+        if (!rules.length) { wrap.innerHTML = ''; return; }
+        const nextIndex = (activeIndex + 1) % rules.length;
+        wrap.innerHTML = rules.map((val, i) => {
+            let cls = 'rule-chip';
+            let labelHtml = '';
+            if (i === activeIndex) { cls += ' active'; labelHtml = '<span class="chip-label">NOW</span>'; }
+            else if (i === nextIndex) { cls += ' next'; labelHtml = '<span class="chip-label next-label">NEXT</span>'; }
+            return `<div class="${cls}" style="margin-top:${labelHtml ? '10px' : '0'}">${labelHtml}${val}</div>`;
+        }).join('');
+    }
+
+    /* ===== SAVE RULES ===== */
+    async function saveRules() {
+        const raw = document.getElementById('rules-input').value.trim();
+        if (!raw) { showToast('⚠️ Rules tidak boleh kosong', 'error'); return; }
+
+        const parts = raw.split('-').map(s => parseInt(s.trim()));
+        if (parts.some(n => isNaN(n) || n < 9 || n > 54)) {
+            showToast('❌ Angka harus antara 9–54', 'error'); return;
+        }
+
+        const btn = document.getElementById('btn-save-rules');
+        btn.disabled = true; btn.textContent = 'Menyimpan...';
+
+        const nowpola = parts[0];
+        const nextpola = parts.length > 1 ? parts[1] : parts[0];
+
+        await userRef.update({ rules: parts.join('-'), index: 0, nowpola, nextpola });
+        btn.disabled = false; btn.textContent = '💾 Simpan';
+        showToast('✅ Rules berhasil disimpan!', 'success');
+    }
+
+    /* ===== INDEX CONTROL ===== */
+    async function shiftIndex(delta) {
+        const total = currentRules.length;
+        if (!total) { showToast('⚠️ Tidak ada rules', 'error'); return; }
+
+        let idx = (currentData.index || 0) + delta;
+        if (idx < 0) idx = total - 1;
+        if (idx >= total) idx = 0;
+
+        const nowpola = currentRules[idx];
+        const nextpola = currentRules[(idx + 1) % total];
+        await userRef.update({ index: idx, nowpola, nextpola });
+        showToast(`📍 Index → ${idx} (target: ${nowpola})`, 'success');
+    }
+
+    async function resetIndex() {
+        if (!currentRules.length) { showToast('⚠️ Tidak ada rules', 'error'); return; }
+        const nowpola = currentRules[0];
+        const nextpola = currentRules.length > 1 ? currentRules[1] : currentRules[0];
+        await userRef.update({ index: 0, nowpola, nextpola });
+        showToast('↺ Index direset ke 0', 'success');
+    }
+
+    /* ===== EXPIRY ===== */
+    async function setExpiry() {
+        const days = parseInt(document.getElementById('expiry-days').value);
+        if (isNaN(days) || days < 1) { showToast('⚠️ Masukkan jumlah hari yang valid', 'error'); return; }
+
+        const nowSec = Math.floor(Date.now() / 1000);
+        const expirySec = nowSec + (days * 86400);
+        await userRef.child('expiry').set({ timestamp: expirySec });
+        document.getElementById('expiry-days').value = '';
+        showToast(`⏱ Expiry set: ${days} hari`, 'success');
+    }
+
+    async function removeExpiry() {
+        await userRef.child('expiry').remove();
+        showToast('🔓 Akses unlimited (tanpa expiry)', 'success');
+    }
+
+    function updateExpiryStatus(timestamp) {
+        const el = document.getElementById('expiry-status');
+        if (!timestamp) {
+            el.className = 'expiry-status none';
+            el.textContent = '🔓 Tidak ada expiry — akses unlimited';
+            return;
+        }
+        const now = Math.floor(Date.now() / 1000);
+        if (now > timestamp) {
+            const d = new Date(timestamp * 1000);
+            el.className = 'expiry-status expired';
+            el.textContent = `❌ Sudah expired sejak ${d.toLocaleDateString('id-ID')} ${d.toLocaleTimeString('id-ID')}`;
+        } else {
+            const d = new Date(timestamp * 1000);
+            const sisa = Math.ceil((timestamp - now) / 86400);
+            el.className = 'expiry-status ok';
+            el.textContent = `✅ Aktif — expires ${d.toLocaleDateString('id-ID')} (sisa ${sisa} hari)`;
+        }
+    }
+
+    /* ===== TOAST ===== */
+    let toastTimer;
+    function showToast(msg, type = 'success') {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = `toast ${type} show`;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => { t.className = 'toast'; }, 3000);
+    }
+</script>
+
+</body>
+</html>
