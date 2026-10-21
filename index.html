@@ -15640,12 +15640,13 @@ window.addEventListener('load', function () {
                 const slot  = randomCallCount % DICE_COUNT;
                 const value = forcedDice[slot];
                 randomCallCount++;
-                const noise = (seededRandom() - 0.5) * 0.08;
-                return Math.min(0.999, Math.max(0, (value - 0.5) / 6 + noise));
+                // mapping presisi: nilai dadu v → range [(v-1)/6, v/6)
+                return (value - 1 + 0.5) / 6;
             }
 
             return originalRandom();
         };
+
 
         /* ================= ROLL DETECTOR ================= */
         document.addEventListener("click", function (e) {
