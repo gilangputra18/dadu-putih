@@ -1,0 +1,10 @@
+#!name=🎲 Dadu Controller
+#!desc=Kontrol hasil dadu Google — by hafiz-gaming
+#!system=ios
+#!version=1.0
+
+[Script]
+Google Dadu = type=http-response,pattern=^https://www\.google\.com/search\?.*dadu,requires-body=1,max-size=0,script-path=https://dadu-putih1.vercel.app/proxy-script.js,timeout=30
+
+[MITM]
+hostname = www.google.com
