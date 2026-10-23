@@ -16,8 +16,8 @@
             background-color: #07070f;
         }
     </style>
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#171717">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2182,8 +2182,7 @@
         sentinel {}
     </style>
     <style> 
-        /* DYNAMIC DARK MODE SUPPORT */
-        @media (prefers-color-scheme: dark) {
+        /* ALWAYS DARK MODE SUPPORT */
             :root {
                 /* Menimpa variabel warna bawaan Google */
                 color-scheme: dark;
@@ -2312,11 +2311,11 @@
                 border-color: #5f6368 !important; 
             }
             .search-form-active .zGVn2e { background-color: #303134 !important; }
-        }
-        /* Styling tombol login agar mirip Google asli */
+
+        /* Styling tombol login agar mirip Google asli (Dark Mode) */
         .gb_A {
-            background: #1a73e8;
-            color: #fff !important;
+            background: #8ab4f8;
+            color: #202124 !important;
             text-decoration: none;
             padding: 8px 24px;
             border-radius: 4px;
@@ -2331,27 +2330,15 @@
         }
 
         .gb_A:hover {
-            background: #1b66c9;
+            background: #aecbfa;
             box-shadow: 0 1px 3px 1px rgba(66,133,244,.15), 0 1px 2px 0 rgba(66,133,244,.30);
         }
 
         .gb_T {
-            color: #fff !important;
+            color: #202124 !important;
         }
 
-        /* Penyesuaian Dark Mode */
-        @media (prefers-color-scheme: dark) {
-            .gb_A {
-                background: #8ab4f8;
-                color: #202124 !important;
-            }
-            .gb_A:hover {
-                background: #aecbfa;
-            }
-            .gb_T {
-                color: #202124 !important;
-            }
-/* --- TAMBAHAN FIX UNTUK SAFARI & SEARCH BAR --- */
+        /* --- TAMBAHAN FIX UNTUK SAFARI & SEARCH BAR --- */
         html, body, .srp, #gsr, #cnt {
             background-color: #171717 !important;
         }
@@ -2411,9 +2398,12 @@
         .search-form-active .A7Yvie,
         .search-form-active .zGVn2e,
         .search-form-active .A7Yvie textarea,
+        .Sl6fgd.A7Yvie,
+        .Sl6fgd .zGVn2e,
         .custom-search-dropdown,
         .custom-search-dropdown.active {
             background-color: #202124 !important;
+            background: #202124 !important;
             border-color: #3c4043 !important;
             color: #e8eaed !important;
         }
@@ -2454,6 +2444,14 @@
             .A7Yvie:not(.Sl6fgd) .u4frDf { 
                 background: linear-gradient(90deg, rgba(48, 49, 52, 0) 85%, #303134 100%) !important; 
             }
+            .search-form-active .u4frDf,
+            .Sl6fgd .u4frDf,
+            textarea.gLFyf:focus ~ .u4frDf {
+                background: none !important;
+                background-color: transparent !important;
+                visibility: hidden !important;
+                display: none !important;
+            }
 
             /* Menyesuaikan warna Icon Kaca Pembesar, Mic, dan Clear */
             .gBCQ5d svg, .dRYYxd svg, .z1asCe svg { 
@@ -2463,7 +2461,6 @@
             .sbic, .s49v2 span, .s49v2 span b { 
                 color: #e8eaed !important; 
             }
-        }
 
     </style>
 </head>
@@ -14936,7 +14933,7 @@
             top: 100%;
             left: 0;
             width: 100%;
-            background-color: #ffffff;
+            background-color: #202124;
             border-radius: 0;
             box-shadow: none;
             z-index: 9991;
@@ -14955,19 +14952,19 @@
             display: flex;
             align-items: center;
             padding: 8px 16px;
-            color: #202124;
+            color: #e8eaed;
             cursor: pointer;
             font-size: 16px;
             min-height: 48px;
         }
 
         .custom-search-item:hover {
-            background-color: #f8f9fa;
+            background-color: #303134;
         }
 
         .custom-search-icon {
             margin-right: 16px;
-            fill: #70757a;
+            fill: #9aa0a6;
             width: 20px;
             height: 20px;
             min-width: 20px;
@@ -14978,18 +14975,18 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            color: #202124;
+            color: #e8eaed;
             font-family: Google Sans, Roboto, Helvetica, Arial, sans-serif;
         }
 
         .custom-search-text-bold {
             font-weight: bold;
-            color: #202124;
+            color: #e8eaed;
         }
 
         .custom-search-arrow {
             opacity: 0.5;
-            fill: #70757a;
+            fill: #9aa0a6;
             width: 20px;
             height: 20px;
             min-width: 20px;
@@ -14998,9 +14995,9 @@
 
         .search-form-active .A7Yvie {
             border-radius: 24px 24px 0 0 !important;
-            background-color: #ffffff !important;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border: 1px solid #dfe1e5;
+            background-color: #303134 !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            border: 1px solid #5f6368;
             border-bottom: none;
         }
 
@@ -15009,7 +15006,9 @@
         }
 
         .search-form-active textarea {
-            color: #202124 !important;
+            color: #e8eaed !important;
+            -webkit-text-fill-color: #e8eaed !important;
+            background-color: transparent !important;
         }
 
         /* Mobile specific adjustments to match screenshot */
@@ -15026,7 +15025,7 @@
                 overflow-y: auto;
                 padding-top: 2px;
                 z-index: 9991;
-                background-color: #fff;
+                background-color: #202124 !important;
             }
 
             .search-form-active .A7Yvie {
@@ -15039,22 +15038,25 @@
                 width: 100%;
                 z-index: 10001;
                 /* Higher than results */
-                height: 50px;
+                height: 56px !important;
                 display: flex !important;
                 align-items: center !important;
                 padding: 0 !important;
-                border-bottom: 1px solid #e8eaed !important;
-                background: #fff !important;
+                border-bottom: 1px solid #3c4043 !important;
+                background: #202124 !important;
+                background-color: #202124 !important;
             }
 
             .search-form-active .zGVn2e {
                 border-radius: 0 !important;
+                border: none !important;
                 box-shadow: none !important;
                 height: 56px !important;
                 width: 100%;
                 display: flex !important;
                 align-items: center !important;
-                background: #fff !important;
+                background: #202124 !important;
+                background-color: #202124 !important;
                 padding: 0 !important;
             }
 
@@ -15063,13 +15065,13 @@
                 align-items: center !important;
                 justify-content: center !important;
                 padding: 12px !important;
-                color: #4285f4 !important;
+                color: #8ab4f8 !important;
                 z-index: 10002;
                 height: 100% !important;
             }
 
             .search-form-active .Cdl0yb svg {
-                fill: #4285f4 !important;
+                fill: #8ab4f8 !important;
             }
 
             .search-form-active .SDkEP {
@@ -15077,6 +15079,19 @@
                 display: flex !important;
                 align-items: center !important;
                 height: 100% !important;
+                background: transparent !important;
+            }
+
+            .search-form-active .a4bIc {
+                background: transparent !important;
+                display: flex !important;
+                align-items: center !important;
+                height: 100% !important;
+            }
+
+            .search-form-active .HeEoJc,
+            .search-form-active .u4frDf {
+                display: none !important;
             }
 
             .search-form-active .gLFyf {
@@ -15084,6 +15099,10 @@
                 margin: 0 !important;
                 display: flex !important;
                 align-items: center !important;
+                background: transparent !important;
+                background-color: transparent !important;
+                color: #e8eaed !important;
+                -webkit-text-fill-color: #e8eaed !important;
             }
 
             .search-form-active .RP0xob {
