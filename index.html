@@ -2312,30 +2312,38 @@
             }
             .search-form-active .zGVn2e { background-color: #303134 !important; }
 
-        /* Styling tombol login agar mirip Google asli (Dark Mode) */
-        .gb_A {
-            background: #8ab4f8;
-            color: #202124 !important;
+                /* Styling tombol login sesuai referensi (Pill Capsule Light Blue #c2e7ff) */
+        .gb_A, a.gb_A {
+            background: #c2e7ff !important;
+            color: #001d35 !important;
             text-decoration: none;
-            padding: 8px 24px;
-            border-radius: 4px;
-            font-family: 'Google Sans', Roboto, Helvetica, Arial, sans-serif;
-            font-weight: 500;
-            font-size: 14px;
+            padding: 8px 22px !important;
+            border-radius: 100px !important;
+            font-family: 'Google Sans', 'Google Sans Text', Roboto, Helvetica, Arial, sans-serif !important;
+            font-weight: 500 !important;
+            font-size: 14px !important;
             letter-spacing: .25px;
-            display: inline-block;
-            line-height: 16px;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            line-height: 20px !important;
             vertical-align: middle;
-            transition: background .2s, box-shadow .2s;
+            min-height: 38px;
+            min-width: 80px;
+            box-sizing: border-box;
+            border: none !important;
+            box-shadow: none !important;
+            transition: background .2s ease, box-shadow .2s ease;
         }
 
-        .gb_A:hover {
-            background: #aecbfa;
-            box-shadow: 0 1px 3px 1px rgba(66,133,244,.15), 0 1px 2px 0 rgba(66,133,244,.30);
+        .gb_A:hover, a.gb_A:hover {
+            background: #b1dfff !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .gb_T {
-            color: #202124 !important;
+            color: #001d35 !important;
+            font-weight: 500 !important;
         }
 
         /* --- TAMBAHAN FIX UNTUK SAFARI & SEARCH BAR --- */
