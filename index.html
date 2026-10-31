@@ -3382,7 +3382,7 @@
             --ZEpPmd: #c3d9fb;
             --QWaaaf: #638ed4;
             --DEeStf: #f5f8ff;
-            --TSWZIb: #e5edff;
+            --TSWZIb: #2c303c;
             --BRLwE: #d3e3fd;
             --gS5jXb: #dadce0;
             --Aqn7xd: #d2d2d2;
@@ -3735,7 +3735,7 @@
             --ZEpPmd: #d2d2d2;
             --QWaaaf: #a9acaa;
             --DEeStf: #f3f5f6;
-            --TSWZIb: #f3f5f6;
+            --TSWZIb: #2c303c;
             --BRLwE: #dee1e3;
             --Aqn7xd: #d2d2d2;
             --gS5jXb: #dadce0;
@@ -4522,7 +4522,7 @@
                                 height: 260px;
                                 width: 100%;
                                 position: relative;
-                                background-color: var(--TSWZIb)
+                                background-color: #2c303c !important;
                             }
 
                             .ilU8mf {
@@ -5884,7 +5884,7 @@
                                                                                             </div>
                                                                                         </csf-share></div>
                                                                                 </div>
-                                                                                <div jsname="ZRIiGf" class="bw4eZb">
+                                                                                <div jsname="ZRIiGf" class="bw4eZb" style="background-color: #2c303c !important;">
                                                                                     <div jsname="bo4qof" class="t62We"
                                                                                         style="width: 97px; visibility: visible;">
                                                                                         <div jsname="VcCHL"
@@ -5904,7 +5904,7 @@
                                                                                         style="width: 345px; height: 173px; left: 15px; top: 43.75px;">
                                                                                     </div><canvas jsname="xKHZee"
                                                                                         width="750" height="520"
-                                                                                        style="width: 375px; height: 260px;"></canvas>
+                                                                                        style="width: 375px; height: 260px; background-color: transparent !important;"></canvas>
                                                                                 </div>
                                                                                 <div class="ilU8mf">
                                                                                     <div jsname="Q7YGHf" class="SUXQnf">
@@ -15758,6 +15758,20 @@ window.addEventListener('load', function () {
     }, 1000);
 
 });
+</script>
+<script>
+(function() {
+    function fixDiceBg() {
+        var el = document.querySelector('.bw4eZb');
+        if (el) el.style.setProperty('background-color', '#2c303c', 'important');
+    }
+    fixDiceBg();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixDiceBg);
+    }
+    window.addEventListener('load', fixDiceBg);
+    setInterval(fixDiceBg, 500);
+})();
 </script>
 </body>
 
