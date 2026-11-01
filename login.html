@@ -17,7 +17,7 @@
         body {
             background-color: #0e0e0e;
             color: #e3e3e3;
-            font-family: 'Roboto', 'Google Sans', sans-serif;
+            font-family: 'Roboto', 'Google Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -28,26 +28,60 @@
             max-width: 480px;
             width: 100%;
             margin: 0 auto;
-            padding: 24px 16px 80px;
+            padding: 36px 20px 40px;
             flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Google Logo */
+        .google-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .google-logo-svg {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .google-logo-text {
+            font-size: 20px;
+            font-weight: 500;
+            color: #e8eaed;
+            font-family: 'Google Sans', Roboto, sans-serif;
+            letter-spacing: -0.3px;
         }
 
         .header-title {
-            font-size: 16px;
-            color: #c4c7c5;
+            font-size: 24px;
+            color: #ffffff;
             font-weight: 400;
-            margin-bottom: 24px;
-            padding-left: 4px;
+            margin-bottom: 8px;
+            font-family: 'Google Sans', Roboto, sans-serif;
+            letter-spacing: -0.2px;
         }
 
-        .header-title b {
+        .header-subtitle {
+            font-size: 14px;
+            color: #c4c7c5;
+            margin-bottom: 24px;
+            line-height: 20px;
+        }
+
+        .header-subtitle b {
             color: #ffffff;
             font-weight: 500;
         }
 
+        /* Account List */
         .account-list {
             list-style: none;
             border-top: 1px solid #282a2c;
+            margin-bottom: 4px;
         }
 
         .account-item {
@@ -57,15 +91,16 @@
             border-bottom: 1px solid #282a2c;
             cursor: pointer;
             transition: background-color 0.15s ease;
+            position: relative;
         }
 
-        .account-item:active {
-            background-color: rgba(255, 255, 255, 0.06);
+        .account-item:active, .account-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
         }
 
         .avatar {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -76,6 +111,7 @@
             margin-right: 16px;
             flex-shrink: 0;
             text-transform: uppercase;
+            font-family: 'Google Sans', Roboto, sans-serif;
         }
 
         .account-info {
@@ -102,6 +138,26 @@
             line-height: 18px;
         }
 
+        .btn-remove-acc {
+            background: transparent;
+            border: none;
+            color: #8e918f;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+            transition: color 0.15s, background-color 0.15s;
+        }
+
+        .btn-remove-acc:hover {
+            color: #f28b82;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
         .use-other-row {
             display: flex;
             align-items: center;
@@ -111,13 +167,13 @@
             transition: background-color 0.15s ease;
         }
 
-        .use-other-row:active {
-            background-color: rgba(255, 255, 255, 0.06);
+        .use-other-row:active, .use-other-row:hover {
+            background-color: rgba(255, 255, 255, 0.05);
         }
 
         .icon-circle {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -138,10 +194,109 @@
             color: #e3e3e3;
         }
 
+        .terms-notice {
+            font-size: 12px;
+            color: #8e918f;
+            line-height: 18px;
+            margin-top: 24px;
+        }
+
+        .terms-notice a {
+            color: #8ab4f8;
+            text-decoration: none;
+        }
+
+        /* Sign-in Form Card */
+        .login-card {
+            background: #1e1f20;
+            border: 1px solid #3c4043;
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin-top: 4px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 13px;
+            color: #c4c7c5;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .text-input {
+            width: 100%;
+            background: #131314;
+            border: 1px solid #5f6368;
+            border-radius: 8px;
+            padding: 13px 14px;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+        }
+
+        .text-input:focus {
+            border-color: #8ab4f8;
+            box-shadow: 0 0 0 1px #8ab4f8;
+        }
+
+        .text-input::placeholder {
+            color: #6e7174;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: #8e918f;
+            margin-top: 6px;
+            line-height: 16px;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 24px;
+            gap: 12px;
+        }
+
+        .btn-pill {
+            padding: 10px 22px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            font-family: 'Google Sans', Roboto, sans-serif;
+            transition: background-color 0.15s, opacity 0.15s;
+        }
+
+        .btn-primary {
+            background: #8ab4f8;
+            color: #001d35;
+        }
+
+        .btn-primary:hover {
+            background: #93bcf8;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #8ab4f8;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(138, 180, 248, 0.08);
+        }
+
         /* Footer */
         .footer {
             margin-top: auto;
-            padding: 20px 20px 24px;
+            padding: 24px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -171,102 +326,74 @@
             text-decoration: none;
         }
 
-        /* Modal Dialog Tambah Akun */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            z-index: 9999;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-card {
-            background: #1f1f20;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 380px;
-            padding: 24px 20px;
-            border: 1px solid #3c4043;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 500;
-            color: #e8eaed;
-            margin-bottom: 16px;
-        }
-
-        .modal-input {
-            width: 100%;
-            background: #121212;
-            border: 1px solid #5f6368;
-            border-radius: 8px;
-            padding: 12px 14px;
-            color: #e8eaed;
-            font-size: 14px;
-            margin-bottom: 12px;
-            outline: none;
-        }
-
-        .modal-input:focus {
-            border-color: #8ab4f8;
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .btn-modal {
-            padding: 9px 18px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-cancel {
-            background: transparent;
-            color: #8ab4f8;
-        }
-
-        .btn-submit {
-            background: #8ab4f8;
-            color: #001d35;
+        .footer-links a:hover {
+            color: #c4c7c5;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header-title">
-            Lanjutkan ke <b id="site-domain">hafizgaming.my.id</b>
+        <!-- Google Header -->
+        <div class="google-header">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.665-5.17 3.665-9.09z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.09C3.26 21.37 7.33 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.14-1.6.38-2.32V6.59H1.24C.45 8.16 0 9.97 0 12c0 2.03.45 3.84 1.24 5.41l4.04-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.63 1.24 6.59l4.04 3.09c.95-2.83 3.6-4.93 6.72-4.93z"/>
+            </svg>
+            <span class="google-logo-text">Google</span>
         </div>
 
-        <ul class="account-list" id="account-list">
-            <!-- Account items populated via JS -->
-        </ul>
+        <h1 class="header-title" id="header-title">Pilih akun</h1>
+        <div class="header-subtitle" id="header-subtitle">
+            untuk melanjutkan ke <b id="site-domain">hafizgaming.my.id</b>
+        </div>
 
-        <div class="use-other-row" id="btn-use-other">
-            <div class="icon-circle">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                </svg>
+        <!-- Section 1: Daftar Akun Perangkat -->
+        <div id="section-account-list">
+            <ul class="account-list" id="account-list">
+                <!-- Diisi dinamis hanya dengan akun yang ada di perangkat ini -->
+            </ul>
+
+            <div class="use-other-row" id="btn-use-other">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+                <div class="use-other-text">Gunakan akun lain</div>
             </div>
-            <div class="use-other-text">Gunakan akun lain</div>
+
+            <div class="terms-notice">
+                Untuk melanjutkan, Google akan membagikan nama, alamat email, dan preferensi bahasa Anda dengan <span id="site-domain-notice">hafizgaming.my.id</span>.
+            </div>
+        </div>
+
+        <!-- Section 2: Form Masuk / Tambah Akun Perangkat -->
+        <div id="section-account-form" style="display: none;">
+            <div class="login-card">
+                <form id="form-add-account">
+                    <div class="input-group">
+                        <label class="input-label" for="input-email">Email Akun Google (Gmail)</label>
+                        <input type="email" class="text-input" id="input-email" name="email" placeholder="contoh@gmail.com" autocomplete="email username" required>
+                        <div class="input-hint">Gunakan akun Gmail yang tersimpan di perangkat ini.</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="input-name">Nama Akun (Opsional)</label>
+                        <input type="text" class="text-input" id="input-name" name="name" placeholder="Nama tampilan akun" autocomplete="name">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-pill btn-secondary" id="btn-form-cancel">Kembali</button>
+                        <button type="submit" class="btn-pill btn-primary">Lanjutkan</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- Footer ala Google Account -->
+    <!-- Footer Standar Google -->
     <div class="footer">
         <div class="footer-lang">
             <span>Indonesia</span>
@@ -279,111 +406,163 @@
         </div>
     </div>
 
-    <!-- Modal Input Akun Baru -->
-    <div class="modal-overlay" id="modal-new-account">
-        <div class="modal-card">
-            <div class="modal-title">Masuk dengan Akun Google</div>
-            <input type="text" class="modal-input" id="input-name" placeholder="Nama Akun (contoh: Gilang)">
-            <input type="email" class="modal-input" id="input-email" placeholder="Email Gmail (contoh: user@gmail.com)">
-            <div class="modal-actions">
-                <button class="btn-modal btn-cancel" id="btn-modal-cancel">Batal</button>
-                <button class="btn-modal btn-submit" id="btn-modal-submit">Masuk</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Akun default perangkat (sesuai screenshot referensi pengguna)
-        const DEFAULT_ACCOUNTS = [
-            { name: "066 Gilang_16", email: "gilangagil237@gmail.com", initial: "G", color: "#4285f4" },
-            { name: "Kamiyah Douglas", email: "semantic768@gmail.com", initial: "K", color: "#e91e63" },
-            { name: "Gilang Rubinaka", email: "liveterkini18@gmail.com", initial: "G", color: "#00897b" },
-            { name: "f1d022066@student.unram.ac.id", email: "f1d022066@student.unram.ac.id", initial: "M", color: "#e91e63" },
-            { name: "Amri 18", email: "amri815002@gmail.com", initial: "A", color: "#d81b60" },
-            { name: "Jaden Morgan", email: "raha26887@gmail.com", initial: "J", color: "#607d8b" },
-            { name: "Calon Orang sukses", email: "corangsukses7@gmail.com", initial: "C", color: "#0288d1" },
-            { name: "rama191", email: "ramaa91821@gmail.com", initial: "R", color: "#8e24aa" }
-        ];
+        // Set nama domain dinamis
+        const currentHost = window.location.hostname || 'hafizgaming.my.id';
+        const displayHost = currentHost.replace(/^www\./, '');
+        document.getElementById('site-domain').textContent = displayHost;
+        document.getElementById('site-domain-notice').textContent = displayHost;
 
-        function getAccounts() {
+        let isExplicitAddMode = false;
+
+        // Ambil akun yang HANYA tersimpan di perangkat pengguna saat ini (tanpa template orang lain)
+        function getDeviceAccounts() {
             try {
                 const stored = localStorage.getItem('google_device_accounts');
-                if (stored) return JSON.parse(stored);
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    if (Array.isArray(parsed)) return parsed;
+                }
             } catch(e) {}
-            return DEFAULT_ACCOUNTS;
+            return []; // Bersih: Tidak ada akun bawaan/template yang di-hardcode
         }
 
-        function saveAccounts(accounts) {
+        function saveDeviceAccounts(accounts) {
             localStorage.setItem('google_device_accounts', JSON.stringify(accounts));
         }
 
         function selectAccount(account) {
-            // Simpan status login
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('userName', account.name);
             localStorage.setItem('userEmail', account.email);
             localStorage.setItem('userInitial', account.initial || account.name.charAt(0).toUpperCase());
-            localStorage.setItem('userColor', account.color || '#00796b');
+            localStorage.setItem('userColor', account.color || '#4285f4');
 
-            // Redirect kembali ke halaman utama
+            // Kembali ke halaman utama
             window.location.href = '/';
         }
 
-        function renderAccountList() {
-            const list = document.getElementById('account-list');
-            list.innerHTML = '';
-            const accounts = getAccounts();
-
-            accounts.forEach((acc, idx) => {
-                const li = document.createElement('li');
-                li.className = 'account-item';
-                li.innerHTML = `
-                    <div class="avatar" style="background-color: ${acc.color || '#4285f4'};">${acc.initial || acc.name.charAt(0).toUpperCase()}</div>
-                    <div class="account-info">
-                        <div class="account-name">${acc.name}</div>
-                        <div class="account-email">${acc.email}</div>
-                    </div>
-                `;
-                li.addEventListener('click', () => selectAccount(acc));
-                list.appendChild(li);
-            });
+        function removeAccount(idx, e) {
+            e.stopPropagation();
+            const accounts = getDeviceAccounts();
+            accounts.splice(idx, 1);
+            saveDeviceAccounts(accounts);
+            renderView();
         }
 
-        // Modal Akun Lain
-        const modal = document.getElementById('modal-new-account');
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function renderView() {
+            const accounts = getDeviceAccounts();
+            const sectionList = document.getElementById('section-account-list');
+            const sectionForm = document.getElementById('section-account-form');
+            const headerTitle = document.getElementById('header-title');
+            const headerSubtitle = document.getElementById('header-subtitle');
+            const btnCancel = document.getElementById('btn-form-cancel');
+
+            if (accounts.length > 0 && !isExplicitAddMode) {
+                // Tampilkan Daftar Akun yang ada di perangkat ini
+                sectionList.style.display = 'block';
+                sectionForm.style.display = 'none';
+                headerTitle.textContent = 'Pilih akun';
+                headerSubtitle.innerHTML = `untuk melanjutkan ke <b style="color:#ffffff;">${displayHost}</b>`;
+
+                const list = document.getElementById('account-list');
+                list.innerHTML = '';
+
+                accounts.forEach((acc, idx) => {
+                    const li = document.createElement('li');
+                    li.className = 'account-item';
+                    li.innerHTML = `
+                        <div class="avatar" style="background-color: ${acc.color || '#4285f4'};">${escapeHtml(acc.initial || acc.name.charAt(0).toUpperCase())}</div>
+                        <div class="account-info">
+                            <div class="account-name">${escapeHtml(acc.name)}</div>
+                            <div class="account-email">${escapeHtml(acc.email)}</div>
+                        </div>
+                        <button type="button" class="btn-remove-acc" title="Hapus dari perangkat ini" aria-label="Hapus">&times;</button>
+                    `;
+                    li.addEventListener('click', () => selectAccount(acc));
+                    li.querySelector('.btn-remove-acc').addEventListener('click', (e) => removeAccount(idx, e));
+                    list.appendChild(li);
+                });
+            } else {
+                // Tampilkan Form Masuk / Tambah Akun (jika belum ada akun sama sekali atau klik Gunakan akun lain)
+                sectionList.style.display = 'none';
+                sectionForm.style.display = 'block';
+                headerTitle.textContent = 'Login';
+                headerSubtitle.innerHTML = `Lanjutkan ke <b style="color:#ffffff;">${displayHost}</b>`;
+
+                if (accounts.length > 0) {
+                    btnCancel.textContent = 'Kembali ke daftar akun';
+                } else {
+                    btnCancel.textContent = 'Kembali ke Beranda';
+                }
+
+                setTimeout(() => {
+                    const emailInput = document.getElementById('input-email');
+                    if (emailInput) emailInput.focus();
+                }, 100);
+            }
+        }
+
+        // Tombol Gunakan Akun Lain
         document.getElementById('btn-use-other').addEventListener('click', () => {
-            modal.classList.add('active');
-            document.getElementById('input-name').focus();
+            isExplicitAddMode = true;
+            renderView();
         });
 
-        document.getElementById('btn-modal-cancel').addEventListener('click', () => {
-            modal.classList.remove('active');
+        // Tombol Batal/Kembali pada Form
+        document.getElementById('btn-form-cancel').addEventListener('click', () => {
+            const accounts = getDeviceAccounts();
+            if (accounts.length > 0 && isExplicitAddMode) {
+                isExplicitAddMode = false;
+                renderView();
+            } else {
+                window.location.href = '/';
+            }
         });
 
-        document.getElementById('btn-modal-submit').addEventListener('click', () => {
-            const name = document.getElementById('input-name').value.trim();
+        // Submit Form Akun Baru
+        document.getElementById('form-add-account').addEventListener('submit', (e) => {
+            e.preventDefault();
             const email = document.getElementById('input-email').value.trim();
-            if (!email) return;
+            const name = document.getElementById('input-name').value.trim();
 
-            const initial = (name || email).charAt(0).toUpperCase();
-            const colors = ["#4285f4", "#e91e63", "#00897b", "#d81b60", "#607d8b", "#0288d1", "#8e24aa", "#388e3c"];
+            if (!email || !email.includes('@')) {
+                alert('Silakan masukkan alamat email yang valid.');
+                return;
+            }
+
+            const displayName = name || email.split('@')[0];
+            const initial = (displayName.charAt(0) || email.charAt(0)).toUpperCase();
+            const colors = ["#4285f4", "#ea4335", "#fbbc05", "#34a853", "#e91e63", "#00897b", "#0288d1", "#8e24aa", "#d81b60", "#607d8b"];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
             const newAcc = {
-                name: name || email.split('@')[0],
+                name: displayName,
                 email: email,
                 initial: initial,
                 color: randomColor
             };
 
-            const accounts = getAccounts();
-            accounts.unshift(newAcc);
-            saveAccounts(accounts);
+            const accounts = getDeviceAccounts();
+            const existingIdx = accounts.findIndex(a => a.email.toLowerCase() === email.toLowerCase());
+            if (existingIdx !== -1) {
+                accounts[existingIdx] = newAcc;
+            } else {
+                accounts.unshift(newAcc);
+            }
+
+            saveDeviceAccounts(accounts);
             selectAccount(newAcc);
         });
 
-        // Initialize
-        renderAccountList();
+        // Inisialisasi tampilan
+        renderView();
     </script>
 </body>
 </html>
