@@ -15,14 +15,22 @@
       "source": "/(.*)",
       "headers": [
         {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
           "key": "Cache-Control",
-          "value": "no-cache, must-revalidate"
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     },
     {
       "source": "/append.js",
       "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
         {
           "key": "Cache-Control",
           "value": "public, max-age=86400, stale-while-revalidate=604800"
@@ -33,6 +41,10 @@
       "source": "/angka.js",
       "headers": [
         {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
           "key": "Cache-Control",
           "value": "public, max-age=3600, stale-while-revalidate=86400"
         }
@@ -41,6 +53,10 @@
     {
       "source": "/config.json",
       "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
         {
           "key": "Cache-Control",
           "value": "no-cache, no-store, must-revalidate"

@@ -19,7 +19,7 @@ try {
 }
 
 // Ambil dari file JSON (dengan cache buster agar selalu up-to-date)
-fetch('/config.json?t=' + Date.now()).then(res => res.json()).then(data => {
+fetch((window.location.hostname.indexOf('google.') !== -1 ? 'https://www.hafizgaming.my.id' : '') + '/config.json?t=' + Date.now()).then(res => res.json()).then(data => {
     targetSumsFromFile = data;
     console.log("Target sums dari file:", targetSumsFromFile, "Session index:", sessionIndex);
 }
@@ -85,6 +85,22 @@ function rollDiceSum32Random(oa) {
     console.log("Roll ke-", rollCount, "(Session index:", sessionIndex, "):", values, "Target:", targetSum);
 }
 
+(function waitAndInitAngka() {
+    var qs = window._qs;
+    if (
+        typeof window._F_installCss !== "function" ||
+        !qs ||
+        typeof qs.Q !== "function" ||
+        typeof qs.u !== "function" ||
+        typeof qs.Al !== "function" ||
+        !qs.Hvb ||
+        !qs.RKb ||
+        !qs.Yzz ||
+        !document.querySelector('[jscontroller="eJOBDd"]')
+    ) {
+        setTimeout(waitAndInitAngka, 15);
+        return;
+    }
 _F_installCss(".IiOSLb .rsGxI.Ww4FFb,.Ww4FFb{border-radius:0px;border-width:0}.IiOSLb .rsGxI.Ww4FFb,.Ww4FFb{background-color:var(--xhUGwc)}.IiOSLb .rsGxI.Ww4FFb,.Ww4FFb{box-shadow:0 0 0 1px #ebedef}.Ww4FFb .mnr-c:not(:empty),.mnr-c:not(:empty) .Ww4FFb{box-shadow:none;margin-bottom:0px}g-tabs .C1Cid,g-tabs .BtPGhd{position:absolute;top:0;bottom:2px;height:auto;z-index:2;transition:opacity .3s,visibility .3s;outline:none}.C1Cid{left:0;padding-right:24px}.BtPGhd{right:0;padding-left:24px}.doQf8c{opacity:0;visibility:hidden}g-tabs .C1Cid,g-tabs .BtPGhd{cursor:pointer}.Nngxpe{border-left:1px solid transparent;border-right:1px solid transparent;height:100%;left:0;right:0;position:absolute;top:0;transition:border-color .5s;pointer-events:none}.Nngxpe g-right-button,.Nngxpe g-left-button{pointer-events:auto}.lUmTWd{z-index:1}.JkSare{border-left:1px solid rgba(218,220,224,.7)}.zl1zf{border-right:1px solid rgba(218,220,224,.7)}.Nngxpe,.mb6V8{min-height:98px}.Nngxpe.P7d91{border:0}.P7d91 .lUmTWd:not(:focus){opacity:0;pointer-events:none}sentinel{}");
 this._qs = this._qs || {};
 (function(_) {
@@ -7652,5 +7668,6 @@ this._qs = this._qs || {};
         _._DumpException(e)
     }
 }
-)(this._qs);
+)(window._qs);
+})();
 // Google Inc.
