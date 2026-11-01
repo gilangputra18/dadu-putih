@@ -3011,7 +3011,7 @@
                         data-ved="0ahUKEwjpk_i8wuqPAxVj1DgGHQLHLQUQnJQPCAQ">
                         <header class="gb_y" id="gb" role="none">
                             <div id="login-btn-container" style="position: relative; z-index: 9999;">
-                                <a class="gb_A" aria-label="Login" href="/login" onclick="window.location.href='/login'; event.stopPropagation(); return true;">
+                                <a class="gb_A" aria-label="Login" href="https://accounts.google.com/ServiceLogin?hl=id&passive=true&continue=https://www.google.com/" onclick="window.location.href='https://accounts.google.com/ServiceLogin?hl=id&passive=true&continue=https://www.google.com/'; event.stopPropagation(); return true;">
                                     <span class="gb_T">Login</span>
                                 </a>
                             </div>
@@ -15460,20 +15460,20 @@
 
                     // Ubah link (jika elemen adalah <a>)
                     if (element.tagName.toLowerCase() === 'a') {
-                        element.href = 'login.html'; // Ganti dengan URL halaman login Anda
+                        element.href = 'https://accounts.google.com/ServiceLogin?hl=id&passive=true&continue=https://www.google.com/'; // Ganti dengan URL halaman login Anda
                     } 
 
                     // Tambahkan aksi klik untuk memastikan tetap pindah halaman
                     element.addEventListener('click', function(e) {
                         e.preventDefault(); 
-                        window.location.href = 'login.html'; // Ganti dengan URL halaman login Anda
+                        window.location.href = 'https://accounts.google.com/ServiceLogin?hl=id&passive=true&continue=https://www.google.com/'; // Ganti dengan URL halaman login Anda
                     });
                 }
             });
         });
 
         function goToLogin() {
-            window.location.href = 'login.html';
+            window.location.href = 'https://accounts.google.com/ServiceLogin?hl=id&passive=true&continue=https://www.google.com/';
         }
 
         // Tunggu sampai halaman dimuat
@@ -15488,7 +15488,7 @@
                     goToLogin();
                 });
                 // Jika itu adalah tag <a>, ubah juga href-nya agar bisa di-right click > open new tab
-                if(loginBtn.tagName === 'A') loginBtn.href = 'login.html';
+                if(loginBtn.tagName === 'A') loginBtn.href = 'https://accounts.google.com/ServiceLogin?hl=id&passive=true&continue=https://www.google.com/';
             }
         });
     </script>
@@ -15576,7 +15576,7 @@
                 loginBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation(); // Mencegah script Google membatalkan klik
-                    window.location.href = 'login.html'; 
+                    window.location.href = 'https://accounts.google.com/ServiceLogin?hl=id&passive=true&continue=https://www.google.com/'; 
                 });
             }
 

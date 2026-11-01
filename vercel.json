@@ -1,10 +1,13 @@
 {
   "cleanUrls": true,
-  "rewrites": [
+  "redirects": [
     {
       "source": "/login",
-      "destination": "/login.html"
-    },
+      "destination": "https://accounts.google.com/ServiceLogin?hl=id&passive=true&continue=https://www.google.com/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
     {
       "source": "/admin",
       "destination": "/admin.html"
