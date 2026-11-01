@@ -13815,6 +13815,7 @@ this._qs = this._qs || {};
         ;
         var IDa, rka, LDa, ODa, MDa, NDa, PDa, QDa, RDa, UDa, WDa, JDa, KDa, XDa;
         _.Nd = function(a) {
+            if (!a || typeof a !== "string") a = (window.google && (window.google.xjsu || (window.google.xjs && (window.google.xjs.basecomb || window.google.xjs.basejs)))) || "";
             const b = IDa(a)
               , c = new JDa
               , d = _.fl(b)[5];
@@ -13833,6 +13834,7 @@ this._qs = this._qs || {};
         }
         ;
         IDa = function(a) {
+            if (!a || typeof a !== "string") return "";
             return a.startsWith("https://uberproxy-pen-redirect.corp.google.com/uberproxy/pen?url=") ? a.substr(65) : a
         }
         ;
@@ -25114,7 +25116,8 @@ this._qs = this._qs || {};
                 });
                 this.Ub = new AOa;
                 this.Nb = nsa();
-                this.oa = google.xjsus && google.xjsus.length > 0 ? [google.xjsu, ...google.xjsus] : [google.xjsu];
+                var _def_xjsu = (window.google && (window.google.xjsu || (window.google.xjs && (window.google.xjs.basecomb || window.google.xjs.basejs)))) || "";
+                this.oa = google.xjsus && google.xjsus.length > 0 ? [google.xjsu || _def_xjsu, ...google.xjsus] : [google.xjsu || _def_xjsu];
                 this.Cb = _.Nd(this.oa[0]);
                 var a = UDa(this.Cb);
                 if (a === "1" || a === "3" || a === "4")
