@@ -2294,10 +2294,10 @@
             }
             .caNvfd {
                 --gS5jXb: #3c4043 !important;
-                --YLNNHc: #ffffff !important;
+                --YLNNHc: #e8eaed !important;
             }
 
-            /* Underline putih aktif di tab 'Semua' */
+            /* Underline aktif di tab 'Semua' - disesuaikan agar tidak terlalu terang (#e8eaed, tebal 2px) */
             .mXwfNd[selected] span,
             .mXwfNd[aria-current="page"] span,
             [selected] .R1QWuf,
@@ -2306,12 +2306,12 @@
             .mXwfNd[aria-current="page"] .R1QWuf,
             div[aria-current="page"] > span,
             div[selected] > span {
-                color: #ffffff !important;
+                color: #e8eaed !important;
                 text-decoration: underline !important;
                 text-decoration-line: underline !important;
-                text-decoration-color: #ffffff !important;
+                text-decoration-color: #e8eaed !important;
                 text-decoration-style: solid !important;
-                text-decoration-thickness: 3px !important;
+                text-decoration-thickness: 2px !important;
                 text-underline-offset: 8px !important;
             }
 
@@ -2546,8 +2546,17 @@
                 border-color: #3c4043 !important;
                 color: #e8eaed !important;
             }
-            .G6LvIe {
-                box-shadow: 0 0 0 1px #3c4043 !important;
+            .G6LvIe,
+            .Ww4FFb,
+            .IiOSLb .rsGxI.Ww4FFb,
+            .ecRggb,
+            .kno-result,
+            .vt6azd,
+            .g-blk,
+            .xpdopen,
+            .wHYlTd {
+                box-shadow: none !important;
+                border-color: #3c4043 !important;
             }
             hr, hr.ga9aRe {
                 border-bottom-color: #3c4043 !important;
@@ -3351,7 +3360,7 @@
                                         aria-disabled="true" role="link" tabindex="0" data-hveid="21"
                                         data-ved="0ahUKEwjpk_i8wuqPAxVj1DgGHQLHLQUQ2Z0MCBU">
                                         <div jsname="xBNgKe" aria-current="page" selected="" class="mXwfNd"><span
-                                                class="R1QWuf" style="color:#ffffff !important;text-decoration:underline !important;text-decoration-line:underline !important;text-decoration-color:#ffffff !important;text-decoration-thickness:3px !important;text-underline-offset:8px !important;">Semua</span></div>
+                                                class="R1QWuf" style="color:#e8eaed !important;text-decoration:underline !important;text-decoration-line:underline !important;text-decoration-color:#e8eaed !important;text-decoration-thickness:2px !important;text-underline-offset:8px !important;">Semua</span></div>
                                     </a></div>
                                 <div role="listitem" data-hveid="22"
                                     data-ved="0ahUKEwjpk_i8wuqPAxVj1DgGHQLHLQUQtoAJCBYoAA"><a jsname="pxBnId"
@@ -3867,7 +3876,7 @@
                                                         data-hveid="CBMQAQ"
                                                         data-ved="2ahUKEwjpk_i8wuqPAxVj1DgGHQLHLQUQ2Z0MegQIExAB">
                                                         <div jsname="xBNgKe" aria-current="page" selected=""
-                                                            class="mXwfNd"><span class="R1QWuf" style="color:#ffffff !important;text-decoration:underline !important;text-decoration-line:underline !important;text-decoration-color:#ffffff !important;text-decoration-thickness:3px !important;text-underline-offset:8px !important;">Semua</span></div>
+                                                            class="mXwfNd"><span class="R1QWuf" style="color:#e8eaed !important;text-decoration:underline !important;text-decoration-line:underline !important;text-decoration-color:#e8eaed !important;text-decoration-thickness:2px !important;text-underline-offset:8px !important;">Semua</span></div>
                                                     </a></div>
                                                 <div role="listitem" data-hveid="CB4QAA"
                                                     data-ved="2ahUKEwjpk_i8wuqPAxVj1DgGHQLHLQUQtoAJKAB6BAgeEAA"><a
@@ -15798,22 +15807,27 @@ window.addEventListener('load', function () {
         var diceEl = document.querySelector('.bw4eZb');
         if (diceEl) diceEl.style.setProperty('background-color', '#2c303c', 'important');
 
-        // 2. Kunci garis indikator putih di bawah tab 'Semua'
+        // 2. Kunci garis indikator tab 'Semua' (#e8eaed, tebal 2px, tidak terlalu terang)
         var activeTabs = document.querySelectorAll('.mXwfNd[selected] .R1QWuf, .mXwfNd[aria-current="page"] .R1QWuf, [selected] .R1QWuf, [aria-current="page"] .R1QWuf');
         activeTabs.forEach(function(el) {
-            el.style.setProperty('color', '#ffffff', 'important');
+            el.style.setProperty('color', '#e8eaed', 'important');
             el.style.setProperty('text-decoration', 'underline', 'important');
             el.style.setProperty('text-decoration-line', 'underline', 'important');
-            el.style.setProperty('text-decoration-color', '#ffffff', 'important');
-            el.style.setProperty('text-decoration-thickness', '3px', 'important');
+            el.style.setProperty('text-decoration-color', '#e8eaed', 'important');
+            el.style.setProperty('text-decoration-thickness', '2px', 'important');
             el.style.setProperty('text-underline-offset', '8px', 'important');
         });
 
-        // 3. Kunci garis pembatas horizontal top nav
+        // 3. Kunci garis pembatas horizontal top nav dan hilangkan box-shadow terang kartu
         var ggNav = document.querySelectorAll('.GG4mbd');
         ggNav.forEach(function(el) {
             el.style.setProperty('border-bottom', '1px solid #3c4043', 'important');
             el.style.setProperty('background-color', '#202124', 'important');
+        });
+
+        var brightCards = document.querySelectorAll('.Ww4FFb, .IiOSLb .rsGxI.Ww4FFb, .ecRggb, .G6LvIe');
+        brightCards.forEach(function(el) {
+            el.style.setProperty('box-shadow', 'none', 'important');
         });
 
         // 4. Kunci garis pembatas g-tabs
