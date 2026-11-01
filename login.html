@@ -1,13 +1,389 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0; url=https://accounts.google.com/ServiceLogin?hl=id&passive=true&continue=https://www.google.com/">
-    <title>Login - Akun Google</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Akun - Google</title>
+    <link rel="icon" href="//www.gstatic.com/images/branding/searchlogo/ico/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #0e0e0e;
+            color: #e3e3e3;
+            font-family: 'Roboto', 'Google Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px 16px 80px;
+            flex: 1;
+        }
+
+        .header-title {
+            font-size: 16px;
+            color: #c4c7c5;
+            font-weight: 400;
+            margin-bottom: 24px;
+            padding-left: 4px;
+        }
+
+        .header-title b {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .account-list {
+            list-style: none;
+            border-top: 1px solid #282a2c;
+        }
+
+        .account-item {
+            display: flex;
+            align-items: center;
+            padding: 13px 4px;
+            border-bottom: 1px solid #282a2c;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .account-item:active {
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff;
+            margin-right: 16px;
+            flex-shrink: 0;
+            text-transform: uppercase;
+        }
+
+        .account-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .account-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #e3e3e3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 20px;
+        }
+
+        .account-email {
+            font-size: 13px;
+            color: #8e918f;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 18px;
+        }
+
+        .use-other-row {
+            display: flex;
+            align-items: center;
+            padding: 15px 4px;
+            border-bottom: 1px solid #282a2c;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .use-other-row:active {
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .icon-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .icon-circle svg {
+            width: 24px;
+            height: 24px;
+            fill: #c4c7c5;
+        }
+
+        .use-other-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: #e3e3e3;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: auto;
+            padding: 20px 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #8e918f;
+            border-top: 1px solid #202124;
+            max-width: 480px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-lang {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            color: #8e918f;
+            text-decoration: none;
+        }
+
+        /* Modal Dialog Tambah Akun */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 9999;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: #1f1f20;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 380px;
+            padding: 24px 20px;
+            border: 1px solid #3c4043;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #e8eaed;
+            margin-bottom: 16px;
+        }
+
+        .modal-input {
+            width: 100%;
+            background: #121212;
+            border: 1px solid #5f6368;
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: #e8eaed;
+            font-size: 14px;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        .modal-input:focus {
+            border-color: #8ab4f8;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .btn-modal {
+            padding: 9px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: #8ab4f8;
+        }
+
+        .btn-submit {
+            background: #8ab4f8;
+            color: #001d35;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header-title">
+            Lanjutkan ke <b id="site-domain">hafizgaming.my.id</b>
+        </div>
+
+        <ul class="account-list" id="account-list">
+            <!-- Account items populated via JS -->
+        </ul>
+
+        <div class="use-other-row" id="btn-use-other">
+            <div class="icon-circle">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
+            </div>
+            <div class="use-other-text">Gunakan akun lain</div>
+        </div>
+    </div>
+
+    <!-- Footer ala Google Account -->
+    <div class="footer">
+        <div class="footer-lang">
+            <span>Indonesia</span>
+            <svg style="width:12px;height:12px;fill:#8e918f" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+        </div>
+        <div class="footer-links">
+            <a href="#">Bantuan</a>
+            <a href="#">Privasi</a>
+            <a href="#">Persyaratan</a>
+        </div>
+    </div>
+
+    <!-- Modal Input Akun Baru -->
+    <div class="modal-overlay" id="modal-new-account">
+        <div class="modal-card">
+            <div class="modal-title">Masuk dengan Akun Google</div>
+            <input type="text" class="modal-input" id="input-name" placeholder="Nama Akun (contoh: Gilang)">
+            <input type="email" class="modal-input" id="input-email" placeholder="Email Gmail (contoh: user@gmail.com)">
+            <div class="modal-actions">
+                <button class="btn-modal btn-cancel" id="btn-modal-cancel">Batal</button>
+                <button class="btn-modal btn-submit" id="btn-modal-submit">Masuk</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        window.location.replace("https://accounts.google.com/ServiceLogin?hl=id&passive=true&continue=https://www.google.com/");
+        // Akun default perangkat (sesuai screenshot referensi pengguna)
+        const DEFAULT_ACCOUNTS = [
+            { name: "066 Gilang_16", email: "gilangagil237@gmail.com", initial: "G", color: "#4285f4" },
+            { name: "Kamiyah Douglas", email: "semantic768@gmail.com", initial: "K", color: "#e91e63" },
+            { name: "Gilang Rubinaka", email: "liveterkini18@gmail.com", initial: "G", color: "#00897b" },
+            { name: "f1d022066@student.unram.ac.id", email: "f1d022066@student.unram.ac.id", initial: "M", color: "#e91e63" },
+            { name: "Amri 18", email: "amri815002@gmail.com", initial: "A", color: "#d81b60" },
+            { name: "Jaden Morgan", email: "raha26887@gmail.com", initial: "J", color: "#607d8b" },
+            { name: "Calon Orang sukses", email: "corangsukses7@gmail.com", initial: "C", color: "#0288d1" },
+            { name: "rama191", email: "ramaa91821@gmail.com", initial: "R", color: "#8e24aa" }
+        ];
+
+        function getAccounts() {
+            try {
+                const stored = localStorage.getItem('google_device_accounts');
+                if (stored) return JSON.parse(stored);
+            } catch(e) {}
+            return DEFAULT_ACCOUNTS;
+        }
+
+        function saveAccounts(accounts) {
+            localStorage.setItem('google_device_accounts', JSON.stringify(accounts));
+        }
+
+        function selectAccount(account) {
+            // Simpan status login
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', account.name);
+            localStorage.setItem('userEmail', account.email);
+            localStorage.setItem('userInitial', account.initial || account.name.charAt(0).toUpperCase());
+            localStorage.setItem('userColor', account.color || '#00796b');
+
+            // Redirect kembali ke halaman utama
+            window.location.href = '/';
+        }
+
+        function renderAccountList() {
+            const list = document.getElementById('account-list');
+            list.innerHTML = '';
+            const accounts = getAccounts();
+
+            accounts.forEach((acc, idx) => {
+                const li = document.createElement('li');
+                li.className = 'account-item';
+                li.innerHTML = `
+                    <div class="avatar" style="background-color: ${acc.color || '#4285f4'};">${acc.initial || acc.name.charAt(0).toUpperCase()}</div>
+                    <div class="account-info">
+                        <div class="account-name">${acc.name}</div>
+                        <div class="account-email">${acc.email}</div>
+                    </div>
+                `;
+                li.addEventListener('click', () => selectAccount(acc));
+                list.appendChild(li);
+            });
+        }
+
+        // Modal Akun Lain
+        const modal = document.getElementById('modal-new-account');
+        document.getElementById('btn-use-other').addEventListener('click', () => {
+            modal.classList.add('active');
+            document.getElementById('input-name').focus();
+        });
+
+        document.getElementById('btn-modal-cancel').addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        document.getElementById('btn-modal-submit').addEventListener('click', () => {
+            const name = document.getElementById('input-name').value.trim();
+            const email = document.getElementById('input-email').value.trim();
+            if (!email) return;
+
+            const initial = (name || email).charAt(0).toUpperCase();
+            const colors = ["#4285f4", "#e91e63", "#00897b", "#d81b60", "#607d8b", "#0288d1", "#8e24aa", "#388e3c"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+            const newAcc = {
+                name: name || email.split('@')[0],
+                email: email,
+                initial: initial,
+                color: randomColor
+            };
+
+            const accounts = getAccounts();
+            accounts.unshift(newAcc);
+            saveAccounts(accounts);
+            selectAccount(newAcc);
+        });
+
+        // Initialize
+        renderAccountList();
     </script>
 </body>
 </html>
