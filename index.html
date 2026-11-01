@@ -6088,6 +6088,23 @@
                                                                                                     Hapus</div>
                                                                                             </div>
                                                                                         </div>
+                                                                                <!-- Instant Dice Engine Loader -->
+                                                                                <script src="./append.js"></script>
+                                                                                <script src="./angka.js"></script>
+                                                                                <script>
+                                                                                (function() {
+                                                                                    function triggerInstantDice() {
+                                                                                        if (window.google && typeof window.google.drty === 'function') {
+                                                                                            window.google.drty(undefined, true);
+                                                                                        }
+                                                                                    }
+                                                                                    triggerInstantDice();
+                                                                                    if (document.readyState === 'loading') {
+                                                                                        document.addEventListener('DOMContentLoaded', triggerInstantDice);
+                                                                                    }
+                                                                                    window.addEventListener('load', triggerInstantDice);
+                                                                                })();
+                                                                                </script>
                                                                                 <div jsname="DzJjXc"
                                                                                     jscontroller="MC0Gmc" class="yQOdGb"
                                                                                     data-parent-funbox="Roll a die"
@@ -14906,8 +14923,7 @@
         }
     </style>
 
-    <script src="./append.js"></script>
-    <script src="./angka.js" fetchpriority="high"></script>
+    <!-- append.js and angka.js moved to dice container for instant load -->
     <script fetchpriority="high"
         src="https://google.com/xjs/_/js/k=xjs.qs.id.24UHj0H528Q.2018.O/ck=xjs.qs.VSHK_Ev18d4.L.W1.O/am=AIQAAACCoAAAAAAOAAAAQAAASAEQEAAAAAAAAAAAAAAAEAAAAAAAAAAAABABACAAAAQQBAEAmgAAAAAAAAAAAAAAACAARAQAIAsIoFIAJAAAAABDIRAAhQIAAAAAAAAAAAAIAAAAAAgGgojAAQAAEIAAAAAAAAAACAASALggIAAAgZsGQgABCBEAIIACAAAQJAAAEggQAABGAtBAAACJAAk8AsB_4A4BGQAAABAAAAAEQACAAE4NCGAAhAQoDGABAAAAGXAB0IWgMAAAgBAiMAkAAAAAkIAAAgAAAAABAAABAAAAAhAIPQcuBCEIQkIAkw44AAAIAAAAAAAUQggAgIAAAAAAABAABOIAgMADAAAAlAAAKAICgHBNwQIAAABMAIgAgCAAABgAAABAAAQAQJMAAAAKAEJAAAAAXAAgYAQAQATgEUUCAAAAAAAAgBwAPJDwIQUFAAAAAAAAAAAAAAAAAAAAAA7AEJyBRzCAAAAAAAAAAAAAAAAAAAAAAAAAAKQIdTMG/d=0/dg=0/br=1/ujg=1/rs=ACT90oF3VonmiD8ZfXhSgBlbKNICd2mv_A/m=oG0qee,nMfLA,O19q8,UMk45c,bplExb,xMHx5e,o7oVhd,R6UkWb,tW711b,UX8qee,tDA9G,dMJ4he,sy6k9,sy1sj,sy1sl,sy1s7,sy212,sy1sq,sy1sm,sy1sk,syzj,syzh,syzg,sy1sn,sy4cq,sy4cr,sy4cs,sy1vc,sy3ln,sy3lo,sypy,sypt,syn6,syn7,sy3ep,sy3em,sy3dt,sy146,sy3ds,sy372,sy1sw,sy55z,sy1yu,sy12p,syni,synj,sy129,sy126,sy124,syy3,sy125,sy4ct,sy3dq,sy1s9,sy1t2,sy1rk,sy1ri,sy1rj,sy1s8,sy12o,Eox39d,sy3lk,arTwJ,aZ61od,sy3lm,hspDDf,syxu,syxv,xRxDld,syym,syy2,sysy,sysq,sykz,symh,syl0,syl3,syyk,syyi,syyh,syyj,OZLguc,sy1j9,sy147,syyw,Mbif2,ipWLfe,sy1jb,QVaUhf,sy8k,sy8j,syki,sykc,sykg,sykb,sykv,syks,sykr,sykq,sykl,sykj,syka,sydq,sydr,syd0,syd1,syfq,syf8,syfr,sydm,sydl,sydj,syd6,sycl,sycn,syc9,sycj,syci,syba,syfm,syc2,sybw,syc1,syfa,sydp,syds,sycr,sydo,sydt,sydi,sye5,sydx,syde,sye1,sye0,sydc,sydz,sydw,sycy,syd7,sydu,sydg,sye3,syd4,syd2,sycz,sycx,syfb,syf3,syex,syet,syf0,syep,syeq,syeb,syec,sye9,syea,syeo,syej,syei,syb9,syb8,syeh,syen,syek,sycm,sycq,syel,syk2,syk9,syk7,syk6,syk5,sy92,sy90,sy93,syk4,syk8,syk3,syk1,syjy,syjv,syju,syjt,syjs,sy97,syjw,uxMpU,syji,syfp,syes,syfi,syfk,syfd,syfn,syfg,syfl,sycp,sye8"
         nonce=""></script>
