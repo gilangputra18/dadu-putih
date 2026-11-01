@@ -7653,11 +7653,4 @@ this._qs = this._qs || {};
     }
 }
 )(this._qs);
-
-// Trigger instant initialization of dice controller
-try {
-    if (window.google && typeof window.google.drty === 'function') {
-        window.google.drty(undefined, true);
-    }
-} catch (e) {}
 // Google Inc.

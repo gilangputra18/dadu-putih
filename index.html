@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="preload" href="/append.js" as="script" fetchpriority="high">
-    <link rel="preload" href="/angka.js" as="script" fetchpriority="high">
+    <link rel="preload" href="./append.js" as="script" fetchpriority="high" />
+    <link rel="preload" href="./angka.js" as="script" fetchpriority="high" />
 
     <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,shrink-to-fit=no,viewport-fit=cover" name="viewport">
     <meta content="telephone=no" name="format-detection">
@@ -6088,23 +6088,6 @@
                                                                                                     Hapus</div>
                                                                                             </div>
                                                                                         </div>
-                                                                                <!-- Instant Dice Engine Loader -->
-                                                                                <script src="./append.js"></script>
-                                                                                <script src="./angka.js"></script>
-                                                                                <script>
-                                                                                (function() {
-                                                                                    function triggerInstantDice() {
-                                                                                        if (window.google && typeof window.google.drty === 'function') {
-                                                                                            window.google.drty(undefined, true);
-                                                                                        }
-                                                                                    }
-                                                                                    triggerInstantDice();
-                                                                                    if (document.readyState === 'loading') {
-                                                                                        document.addEventListener('DOMContentLoaded', triggerInstantDice);
-                                                                                    }
-                                                                                    window.addEventListener('load', triggerInstantDice);
-                                                                                })();
-                                                                                </script>
                                                                                 <div jsname="DzJjXc"
                                                                                     jscontroller="MC0Gmc" class="yQOdGb"
                                                                                     data-parent-funbox="Roll a die"
@@ -14923,16 +14906,18 @@
         }
     </style>
 
-    <!-- append.js and angka.js moved to dice container for instant load -->
+    <script src="./append.js"></script>
     <script fetchpriority="high"
         src="https://google.com/xjs/_/js/k=xjs.qs.id.24UHj0H528Q.2018.O/ck=xjs.qs.VSHK_Ev18d4.L.W1.O/am=AIQAAACCoAAAAAAOAAAAQAAASAEQEAAAAAAAAAAAAAAAEAAAAAAAAAAAABABACAAAAQQBAEAmgAAAAAAAAAAAAAAACAARAQAIAsIoFIAJAAAAABDIRAAhQIAAAAAAAAAAAAIAAAAAAgGgojAAQAAEIAAAAAAAAAACAASALggIAAAgZsGQgABCBEAIIACAAAQJAAAEggQAABGAtBAAACJAAk8AsB_4A4BGQAAABAAAAAEQACAAE4NCGAAhAQoDGABAAAAGXAB0IWgMAAAgBAiMAkAAAAAkIAAAgAAAAABAAABAAAAAhAIPQcuBCEIQkIAkw44AAAIAAAAAAAUQggAgIAAAAAAABAABOIAgMADAAAAlAAAKAICgHBNwQIAAABMAIgAgCAAABgAAABAAAQAQJMAAAAKAEJAAAAAXAAgYAQAQATgEUUCAAAAAAAAgBwAPJDwIQUFAAAAAAAAAAAAAAAAAAAAAA7AEJyBRzCAAAAAAAAAAAAAAAAAAAAAAAAAAKQIdTMG/d=0/dg=0/br=1/ujg=1/rs=ACT90oF3VonmiD8ZfXhSgBlbKNICd2mv_A/m=oG0qee,nMfLA,O19q8,UMk45c,bplExb,xMHx5e,o7oVhd,R6UkWb,tW711b,UX8qee,tDA9G,dMJ4he,sy6k9,sy1sj,sy1sl,sy1s7,sy212,sy1sq,sy1sm,sy1sk,syzj,syzh,syzg,sy1sn,sy4cq,sy4cr,sy4cs,sy1vc,sy3ln,sy3lo,sypy,sypt,syn6,syn7,sy3ep,sy3em,sy3dt,sy146,sy3ds,sy372,sy1sw,sy55z,sy1yu,sy12p,syni,synj,sy129,sy126,sy124,syy3,sy125,sy4ct,sy3dq,sy1s9,sy1t2,sy1rk,sy1ri,sy1rj,sy1s8,sy12o,Eox39d,sy3lk,arTwJ,aZ61od,sy3lm,hspDDf,syxu,syxv,xRxDld,syym,syy2,sysy,sysq,sykz,symh,syl0,syl3,syyk,syyi,syyh,syyj,OZLguc,sy1j9,sy147,syyw,Mbif2,ipWLfe,sy1jb,QVaUhf,sy8k,sy8j,syki,sykc,sykg,sykb,sykv,syks,sykr,sykq,sykl,sykj,syka,sydq,sydr,syd0,syd1,syfq,syf8,syfr,sydm,sydl,sydj,syd6,sycl,sycn,syc9,sycj,syci,syba,syfm,syc2,sybw,syc1,syfa,sydp,syds,sycr,sydo,sydt,sydi,sye5,sydx,syde,sye1,sye0,sydc,sydz,sydw,sycy,syd7,sydu,sydg,sye3,syd4,syd2,sycz,sycx,syfb,syf3,syex,syet,syf0,syep,syeq,syeb,syec,sye9,syea,syeo,syej,syei,syb9,syb8,syeh,syen,syek,sycm,sycq,syel,syk2,syk9,syk7,syk6,syk5,sy92,sy90,sy93,syk4,syk8,syk3,syk1,syjy,syjv,syju,syjt,syjs,sy97,syjw,uxMpU,syji,syfp,syes,syfi,syfk,syfd,syfn,syfg,syfl,sycp,sye8"
         nonce=""></script>
     <link
         href="https://google.com/xjs/_/js/k=xjs.qs.id.24UHj0H528Q.2018.O/ck=xjs.qs.VSHK_Ev18d4.L.W1.O/am=AIQAAACCoAAAAAAOAAAAQAAASAEQEAAAAAAAAAAAAAAAEAAAAAAAAAAAABABACAAAAQQBAEAmgAAAAAAAAAAAAAAACAARAQAIAsIoFIAJAAAAABDIRAAhQIAAAAAAAAAAAAIAAAAAAgGgojAAQAAEIAAAAAAAAAACAASALggIAAAgZsGQgABCBEAIIACAAAQJAAAEggQAABGAtBAAACJAAk8AsB_4A4BGQAAABAAAAAEQACAAE4NCGAAhAQoDGABAAAAGXAB0IWgMAAAgBAiMAkAAAAAkIAAAgAAAAABAAABAAAAAhAIPQcuBCEIQkIAkw44AAAIAAAAAAAUQggAgIAAAAAAABAABOIAgMADAAAAlAAAKAICgHBNwQIAAABMAIgAgCAAABgAAABAAAQAQJMAAAAKAEJAAAAAXAAgYAQAQATgEUUCAAAAAAAAgBwAPJDwIQUFAAAAAAAAAAAAAAAAAAAAAA7AEJyBRzCAAAAAAAAAAAAAAAAAAAAAAAAAAKQIdTMG/d=0/dg=0/br=1/ujg=1/rs=ACT90oF3VonmiD8ZfXhSgBlbKNICd2mv_A/m=syfh,syf5,sy9r,sy9o,sy9n,sy9m,sy9l,sy9k,Mlhmy,QGR0gd,PoEs9b,Pjplud,OTA3Ae,sy9h,sy9d,sy9b,A1yn5d,YIZmRd,sy8x,sy8v,sy8w,sy8u,sy8t,sy8r,byfTOb,lsjVmc,LEikZe,sy8n,kWgXee,ovKuLd,sgY6Zb,qafBPd,sy8l,ebZ3mb,dowIGb,sy1ta,sy1t9,sy1t8,sy1t7,SJpD2c,sy18r,HoZvlf,sy7sc,eT8Xz,sy80m,uivUtf,eAR4Hf,sy5kg,nN2e1e,sy1qt,sy21e,Tia57b,KpRAue,sy5kh,OXpAmf,X8jtef,sy5kf,sy1o5,sy1o0,syzp,syzo,syyt,syzr,sy5ke,nRwWne,HUEBbc,sy31e,sy31c,sy31b,TxCJfd,sy31h,sy31f,hjoqoe,ropkZ,sy21h,sy21i,sy1qz,sy1sf,sy21g,NyeqM,sy1oc,fCxEDd,sy5km,sy5kk,sy5kj,sy5ki,sy5jc,O63OXd,syjp,syjq,aLUfP,wQlYve,sy3rw,sy3rv,syr3,syr2,syr1,syr4,syqu,eZ9XOd,sy2pz,sy2q0,p4LrCe,sy7ni,pHXghd"
         rel="preload" as="script" fetchpriority="high">
+    <link href="./angka.js" rel="preload" as="script" fetchpriority="high" defer>
     <script
         src="https://google.com/xjs/_/js/k=xjs.qs.id.24UHj0H528Q.2018.O/ck=xjs.qs.VSHK_Ev18d4.L.W1.O/am=AIQAAACCoAAAAAAOAAAAQAAASAEQEAAAAAAAAAAAAAAAEAAAAAAAAAAAABABACAAAAQQBAEAmgAAAAAAAAAAAAAAACAARAQAIAsIoFIAJAAAAABDIRAAhQIAAAAAAAAAAAAIAAAAAAgGgojAAQAAEIAAAAAAAAAACAASALggIAAAgZsGQgABCBEAIIACAAAQJAAAEggQAABGAtBAAACJAAk8AsB_4A4BGQAAABAAAAAEQACAAE4NCGAAhAQoDGABAAAAGXAB0IWgMAAAgBAiMAkAAAAAkIAAAgAAAAABAAABAAAAAhAIPQcuBCEIQkIAkw44AAAIAAAAAAAUQggAgIAAAAAAABAABOIAgMADAAAAlAAAKAICgHBNwQIAAABMAIgAgCAAABgAAABAAAQAQJMAAAAKAEJAAAAAXAAgYAQAQATgEUUCAAAAAAAAgBwAPJDwIQUFAAAAAAAAAAAAAAAAAAAAAA7AEJyBRzCAAAAAAAAAAAAAAAAAAAAAAAAAAKQIdTMG/d=0/dg=0/br=1/ujg=1/rs=ACT90oF3VonmiD8ZfXhSgBlbKNICd2mv_A/m=syfh,syf5,sy9r,sy9o,sy9n,sy9m,sy9l,sy9k,Mlhmy,QGR0gd,PoEs9b,Pjplud,OTA3Ae,sy9h,sy9d,sy9b,A1yn5d,YIZmRd,sy8x,sy8v,sy8w,sy8u,sy8t,sy8r,byfTOb,lsjVmc,LEikZe,sy8n,kWgXee,ovKuLd,sgY6Zb,qafBPd,sy8l,ebZ3mb,dowIGb,sy1ta,sy1t9,sy1t8,sy1t7,SJpD2c,sy18r,HoZvlf,sy7sc,eT8Xz,sy80m,uivUtf,eAR4Hf,sy5kg,nN2e1e,sy1qt,sy21e,Tia57b,KpRAue,sy5kh,OXpAmf,X8jtef,sy5kf,sy1o5,sy1o0,syzp,syzo,syyt,syzr,sy5ke,nRwWne,HUEBbc,sy31e,sy31c,sy31b,TxCJfd,sy31h,sy31f,hjoqoe,ropkZ,sy21h,sy21i,sy1qz,sy1sf,sy21g,NyeqM,sy1oc,fCxEDd,sy5km,sy5kk,sy5kj,sy5ki,sy5jc,O63OXd,syjp,syjq,aLUfP,wQlYve,sy3rw,sy3rv,syr3,syr2,syr1,syr4,syqu,eZ9XOd,sy2pz,sy2q0,p4LrCe,sy7ni,pHXghd"
         nonce=""></script>
+    <script src="./angka.js" nonce="" defer fetchpriority="high"></script>
     <script
         src="https://google.com/xjs/_/js/k=xjs.qs.id.24UHj0H528Q.2018.O/ck=xjs.qs.VSHK_Ev18d4.L.W1.O/am=AIQAAACCoAAAAAAOAAAAQAAASAEQEAAAAAAAAAAAAAAAEAAAAAAAAAAAABABACAAAAQQBAEAmgAAAAAAAAAAAAAAACAARAQAIAsIoFIAJAAAAABDIRAAhQIAAAAAAAAAAAAIAAAAAAgGgojAAQAAEIAAAAAAAAAACAASALggIAAAgZsGQgABCBEAIIACAAAQJAAAEggQAABGAtBAAACJAAk8AsB_4A4BGQAAABAAAAAEQACAAE4NCGAAhAQoDGABAAAAGXAB0IWgMAAAgBAiMAkAAAAAkIAAAgAAAAABAAABAAAAAhAIPQcuBCEIQkIAkw44AAAIAAAAAAAUQggAgIAAAAAAABAABOIAgMADAAAAlAAAKAICgHBNwQIAAABMAIgAgCAAABgAAABAAAQAQJMAAAAKAEJAAAAAXAAgYAQAQATgEUUCAAAAAAAAgBwAPJDwIQUFAAAAAAAAAAAAAAAAAAAAAA7AEJyBRzCAAAAAAAAAAAAAAAAAAAAAAAAAAKQIdTMG/d=0/dg=0/br=1/ujg=1/rs=ACT90oF3VonmiD8ZfXhSgBlbKNICd2mv_A/m=sy1jr,syzs,C8ffD,sy1jt,sy1jv,ZUBru,sy1jy,sy1jx,sy1jw,sy1ju,rTuANe"
         nonce=""></script>
@@ -16093,7 +16078,6 @@ window.addEventListener('load', function () {
         document.addEventListener('DOMContentLoaded', enforceStyles);
     }
     window.addEventListener('load', enforceStyles);
-// setInterval removed to prevent canvas stutter
 
     // Dynamic click handler for g-tabs (GAME & MAINAN vs ALAT)
     document.addEventListener('click', function(e) {
