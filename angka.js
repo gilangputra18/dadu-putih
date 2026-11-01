@@ -7648,6 +7648,7 @@ this._qs = this._qs || {};
         ;
         _.Q(_.Yzz, VuB);
         _.u();
+        try { if (window.google && typeof window.google.drty === "function") { window.google.drty(undefined, true); } } catch(e){}
     } catch (e) {
         _._DumpException(e)
     }
