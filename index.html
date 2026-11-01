@@ -2283,12 +2283,43 @@
 
             /* Link & Text */
             a { color: #8ab4f8 !important; }
-            .mXwfNd[selected] span, .mXwfNd[aria-current="page"] span, [selected] .R1QWuf {
-                color: #e8eaed !important;
-                text-decoration-color: #e8eaed !important;
+
+            /* Top Navigation Active Tab Indicator ("Semua") & Divider */
+            .GG4mbd {
+                border-bottom: 1px solid #3c4043 !important;
+                background-color: #202124 !important;
             }
-            .mXwfNd:not([selected]):not([aria-current="page"]) span {
+            .Fgyi2e, .caNvfd, #hdtbMenus {
+                background-color: #202124 !important;
+            }
+            .caNvfd {
+                --gS5jXb: #3c4043 !important;
+                --YLNNHc: #ffffff !important;
+            }
+
+            /* Underline putih aktif di tab 'Semua' */
+            .mXwfNd[selected] span,
+            .mXwfNd[aria-current="page"] span,
+            [selected] .R1QWuf,
+            [aria-current="page"] .R1QWuf,
+            .mXwfNd[selected] .R1QWuf,
+            .mXwfNd[aria-current="page"] .R1QWuf,
+            div[aria-current="page"] > span,
+            div[selected] > span {
+                color: #ffffff !important;
+                text-decoration: underline !important;
+                text-decoration-line: underline !important;
+                text-decoration-color: #ffffff !important;
+                text-decoration-style: solid !important;
+                text-decoration-thickness: 3px !important;
+                text-underline-offset: 8px !important;
+            }
+
+            /* Nonaktifkan garis bawah pada tab tidak aktif */
+            .mXwfNd:not([selected]):not([aria-current="page"]) span,
+            .mXwfNd:not([selected]):not([aria-current="page"]) .R1QWuf {
                 color: #9aa0a6 !important;
+                text-decoration: none !important;
             }
             a:visited { color: #c58af9 !important; }
             .Z4Cazf, .mus_tt8, span.mus_tt8, div.mus_tt8, .L9kPD { color: #e8eaed !important; }
@@ -2486,12 +2517,13 @@
             }
             g-tabs, .Q0y6Td {
                 border-bottom: 1px solid #3c4043 !important;
+                background-color: #232429 !important;
             }
             .F9SH7d, .Bukvgf, .Hf7tFc {
                 border-color: #ffffff !important;
-            }
-            .zzG8g, .zzG8g div {
-                border-color: #ffffff !important;
+                border-style: solid !important;
+                border-width: 4px 0px 0px !important;
+                border-radius: 4px 4px 0px 0px !important;
             }
             .zzG8g[aria-selected="true"],
             .zzG8g[aria-selected="true"] .F3Istb,
@@ -3319,7 +3351,7 @@
                                         aria-disabled="true" role="link" tabindex="0" data-hveid="21"
                                         data-ved="0ahUKEwjpk_i8wuqPAxVj1DgGHQLHLQUQ2Z0MCBU">
                                         <div jsname="xBNgKe" aria-current="page" selected="" class="mXwfNd"><span
-                                                class="R1QWuf">Semua</span></div>
+                                                class="R1QWuf" style="color:#ffffff !important;text-decoration:underline !important;text-decoration-line:underline !important;text-decoration-color:#ffffff !important;text-decoration-thickness:3px !important;text-underline-offset:8px !important;">Semua</span></div>
                                     </a></div>
                                 <div role="listitem" data-hveid="22"
                                     data-ved="0ahUKEwjpk_i8wuqPAxVj1DgGHQLHLQUQtoAJCBYoAA"><a jsname="pxBnId"
@@ -3835,7 +3867,7 @@
                                                         data-hveid="CBMQAQ"
                                                         data-ved="2ahUKEwjpk_i8wuqPAxVj1DgGHQLHLQUQ2Z0MegQIExAB">
                                                         <div jsname="xBNgKe" aria-current="page" selected=""
-                                                            class="mXwfNd"><span class="R1QWuf">Semua</span></div>
+                                                            class="mXwfNd"><span class="R1QWuf" style="color:#ffffff !important;text-decoration:underline !important;text-decoration-line:underline !important;text-decoration-color:#ffffff !important;text-decoration-thickness:3px !important;text-underline-offset:8px !important;">Semua</span></div>
                                                     </a></div>
                                                 <div role="listitem" data-hveid="CB4QAA"
                                                     data-ved="2ahUKEwjpk_i8wuqPAxVj1DgGHQLHLQUQtoAJKAB6BAgeEAA"><a
@@ -15761,16 +15793,70 @@ window.addEventListener('load', function () {
 </script>
 <script>
 (function() {
-    function fixDiceBg() {
-        var el = document.querySelector('.bw4eZb');
-        if (el) el.style.setProperty('background-color', '#2c303c', 'important');
+    function enforceStyles() {
+        // 1. Kunci background canvas dadu
+        var diceEl = document.querySelector('.bw4eZb');
+        if (diceEl) diceEl.style.setProperty('background-color', '#2c303c', 'important');
+
+        // 2. Kunci garis indikator putih di bawah tab 'Semua'
+        var activeTabs = document.querySelectorAll('.mXwfNd[selected] .R1QWuf, .mXwfNd[aria-current="page"] .R1QWuf, [selected] .R1QWuf, [aria-current="page"] .R1QWuf');
+        activeTabs.forEach(function(el) {
+            el.style.setProperty('color', '#ffffff', 'important');
+            el.style.setProperty('text-decoration', 'underline', 'important');
+            el.style.setProperty('text-decoration-line', 'underline', 'important');
+            el.style.setProperty('text-decoration-color', '#ffffff', 'important');
+            el.style.setProperty('text-decoration-thickness', '3px', 'important');
+            el.style.setProperty('text-underline-offset', '8px', 'important');
+        });
+
+        // 3. Kunci garis pembatas horizontal top nav
+        var ggNav = document.querySelectorAll('.GG4mbd');
+        ggNav.forEach(function(el) {
+            el.style.setProperty('border-bottom', '1px solid #3c4043', 'important');
+            el.style.setProperty('background-color', '#202124', 'important');
+        });
+
+        // 4. Kunci garis pembatas g-tabs
+        var gTabs = document.querySelectorAll('g-tabs, .Q0y6Td');
+        gTabs.forEach(function(el) {
+            el.style.setProperty('border-bottom', '1px solid #3c4043', 'important');
+            el.style.setProperty('background-color', '#232429', 'important');
+        });
+
+        // 5. Kunci indikator putih g-tabs
+        var indicators = document.querySelectorAll('.F9SH7d');
+        indicators.forEach(function(el) {
+            el.style.setProperty('border-color', '#ffffff', 'important');
+        });
     }
-    fixDiceBg();
+
+    enforceStyles();
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixDiceBg);
+        document.addEventListener('DOMContentLoaded', enforceStyles);
     }
-    window.addEventListener('load', fixDiceBg);
-    setInterval(fixDiceBg, 500);
+    window.addEventListener('load', enforceStyles);
+    setInterval(enforceStyles, 400);
+
+    // Dynamic click handler for g-tabs (GAME & MAINAN vs ALAT)
+    document.addEventListener('click', function(e) {
+        var tab = e.target.closest('a[role="tab"]');
+        if (!tab || !tab.closest('g-tabs')) return;
+        var allTabs = tab.closest('g-tabs').querySelectorAll('a[role="tab"]');
+        var indicators = tab.closest('g-tabs').querySelectorAll('.F9SH7d');
+        var isAlat = tab.innerText.includes('ALAT');
+        
+        allTabs.forEach(function(t) {
+            t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+            t.style.setProperty('color', t === tab ? '#ffffff' : '#9aa0a6', 'important');
+        });
+
+        if (indicators.length >= 3) {
+            var offset = isAlat ? 262.167 : 55.0;
+            indicators[0].style.transform = 'translate(' + offset + 'px)';
+            indicators[1].style.transform = 'translate(' + (offset + 3) + 'px) scale(0.9375, 1)';
+            indicators[2].style.transform = 'translate(' + (offset + 30) + 'px)';
+        }
+    });
 })();
 </script>
 </body>
