@@ -92,10 +92,6 @@ function rollDiceSum32Random(oa) {
         !qs ||
         typeof qs.Q !== "function" ||
         typeof qs.u !== "function" ||
-        typeof qs.Al !== "function" ||
-        !qs.Hvb ||
-        !qs.RKb ||
-        !qs.Yzz ||
         !document.querySelector('[jscontroller="eJOBDd"]')
     ) {
         setTimeout(waitAndInitAngka, 15);
@@ -7668,6 +7664,6 @@ this._qs = this._qs || {};
         _._DumpException(e)
     }
 }
-)(window._qs);
+).call(window, window._qs);
 })();
 // Google Inc.
